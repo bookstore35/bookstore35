@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.springboot.dao.BookDao">
+
+    <resultMap id="BaseResultMap" type="com.example.springboot.entity.BookDO">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="gmtCreate" column="gmt_create"/>
+        <result property="gmtModified" column="gmt_modified"/>
+    </resultMap>
+
+    <sql id="book_column">
+        id,name,gmt_create,gmt_modified
+    </sql>
+
+    <!--查询书记录-->
+    <select id="selectById" parameterType="long" resultType="com.example.springboot.entity.BookDO">
+        SELECT
+        -- * 直接写一个*，返回的gmtCreate与gmtModified都为null！要如下方一样显示的as一下别名，映射成我们自定义的dao类！
+        id,name,gmt_create as gmtCreate,gmt_modified as gmtModified
+        FROM
+        book
+        WHERE id = #{bookId}
+    </select>
+
+    <!--查询书记录  返回Map形式-->
+    <select id="selectByIdReturnMap" resultType="map">
+    SELECT
+    *
+    FROM
+    book
+    </select>
+
+    <!--查询书记录-->
+    <select id="selectByName" parameterType="string" resultMap="BaseResultMap">
+        SELECT
+        <include refid="book_column"/>
+        FROM
+        book
+        WHERE name = #{bookName}
+    </select>
+    <!--<select id="selectByName" resultMap="BaseResultMap">-->
+    <!--SELECT-->
+    <!--*-->
+    <!--FROM-->
+    <!--book-->
+    <!--WHERE name = #{bookName}-->
+    <!--</select>-->
+
+    <!--删除书记录-->
+    <delete id="deleteById">
+        delete from book where id = #{bookId}
+    </delete>
+
+    <!--插入书记录-->
+    <insert id="insert">
+        INSERT INTO book
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="gmtCreate != null">
+                gmt_create,
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="gmtCreate != null ">
+                #{gmtCreate},
+            </if>
+            <if test="gmtModified != null">
+                #{gmtModified},
+            </if>
+            <if test="name != null and name != ''">
+                #{name},
+            </if>
+        </trim>
+    </insert>
+
+    <!--更新书记录-->
+    <update id="update">
+        update book
+        <set>
+            <if test="name != null and name != ''">
+                name=#{name},
+            </if>
+            gmt_modified = sysdate()
+        </set>
+        <!--<where>相当于where语句，会自动删除下面跟着的第一个and，只有后面包含有if等语句才需要<>符号包起来-->
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+        </where>
+    </update>
+
+    <!-- 根据实际情况选择分页查询条件
+        下面的相当于：where id=#{id} and name=#{name} and gmt_create=#{gmtCreate} and gmt_modified=#{gmtModified}
+    -->
+    <sql id="findPage_where">
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="userName != null and userName != '' ">
+                and name = #{name}
+            </if>
+            <if test="gmtCreate != null">
+                and gmt_create = #{gmtCreate}
+            </if>
+            <if test="gmtModified != null">
+                and gmt_modified = #{gmtModified}
+            </if>
+        </where>
+    </sql>
+
+</mapper>

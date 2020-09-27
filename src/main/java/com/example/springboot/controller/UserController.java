@@ -20,7 +20,7 @@ public class UserController {
     @PostMapping
     @RequestMapping("/regist")
     public Result regist(@RequestBody User user){
-        return this.userService.regist(user);
+        return this.userService. regist(user);
     }
 
     @GetMapping

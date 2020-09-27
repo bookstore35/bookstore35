@@ -12,4 +12,5 @@ public interface UserService {
     public Result regist(User user);
 
     public Result getById(Integer id);
+
 }

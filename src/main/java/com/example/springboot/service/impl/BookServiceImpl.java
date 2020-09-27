@@ -1,0 +1,47 @@
+package com.example.springboot.service.impl;
+
+import com.example.springboot.dao.BookDao;
+import com.example.springboot.entity.Book;
+import com.example.springboot.service.BookService;
+import com.example.springboot.utils.Result;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class BookServiceImpl implements BookService {
+
+    @Autowired
+    private BookDao bookDao;
+
+
+    @Override
+    public List<Book> findAll() {
+        return bookDao.findAll();
+    }
+
+    @Override
+    public Result getById(Integer id) {
+        Book book = bookDao.findById(id).get();//根据id查询用户;
+        return Result.success(book);
+    }
+
+    @Override
+    public Result getByBookName(String bookName) {
+        Book book = bookDao.findByBookName(bookName);
+        return Result.success(book);
+    }
+
+    @Override
+    public Result insert(Book book) {
+        Book old = this.bookDao.findByBookName(book.getBookName());
+        if(old != null){
+            return Result.error("书本已存在");
+        }
+        book = this.bookDao.save(book);
+        return Result.success(book);
+    }
+
+
+}

@@ -2,6 +2,8 @@ package com.example.springboot.config;
 
 import com.example.springboot.filter.BookFilter1;
 import com.example.springboot.filter.BookFilter2;
+import com.example.springboot.filter.TokenInterceptor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -11,7 +13,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration
 public class FilterConfig implements WebMvcConfigurer {
-
+    // 创建  TokenInterceptor 对象
+    @Bean
+    public TokenInterceptor tokenInterceptor(){
+        return new TokenInterceptor();
+    }
     /**
      * 自定义拦截规则
      * <p>
@@ -28,5 +34,8 @@ public class FilterConfig implements WebMvcConfigurer {
         registry.addInterceptor(new BookFilter2())
                 .addPathPatterns("/**")
                 .excludePathPatterns("/index.html", "/", "/user/login");
+        registry.addInterceptor( tokenInterceptor())
+                .addPathPatterns("/**");
+
     }
 }

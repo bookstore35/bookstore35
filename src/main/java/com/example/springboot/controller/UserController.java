@@ -1,5 +1,6 @@
 package com.example.springboot.controller;
 
+import com.example.springboot.aop.UserLoginToken;
 import com.example.springboot.entity.User;
 import com.example.springboot.service.UserService;
 import com.example.springboot.utils.Result;
@@ -23,6 +24,7 @@ public class UserController {
         return this.userService. regist(user);
     }
 
+    @UserLoginToken
     @GetMapping
     @RequestMapping("/getById")
     public Result getById(Integer id){
@@ -40,4 +42,5 @@ public class UserController {
     public Result sendMessage(String tel , Integer type){
         return null;
     }
+
 }

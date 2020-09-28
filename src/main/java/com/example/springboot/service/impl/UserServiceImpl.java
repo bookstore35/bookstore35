@@ -1,5 +1,6 @@
 package com.example.springboot.service.impl;
 
+import com.example.springboot.config.JwtConfig;
 import com.example.springboot.dao.UserDao;
 import com.example.springboot.entity.User;
 import com.example.springboot.service.UserService;
@@ -7,8 +8,13 @@ import com.example.springboot.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+
 @Service
 public class UserServiceImpl implements UserService {
+
+    @Autowired
+    private JwtConfig jwtConfig;
     @Autowired
     private UserDao userDao;
     @Override
@@ -43,8 +49,12 @@ public class UserServiceImpl implements UserService {
         if(!password.equals(user.getPassword())){
            return Result.error("密码错误");
         }
+//        Instant now = Instant.now();
+//        String secretKey = jwtConfig.getSecret();
+        String token = jwtConfig.createToken(username);
 
-        return Result.success("登录成功");
+
+        return Result.success(token);
     }
 
 

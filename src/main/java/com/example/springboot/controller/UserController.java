@@ -28,4 +28,16 @@ public class UserController {
     public Result getById(Integer id){
         return userService.getById(id);
     }
+
+    @GetMapping
+    @RequestMapping("/login")
+    public Result login(String username ,String password){
+
+        return userService.login(username ,password);
+    }
+    @GetMapping
+    @RequestMapping("/send")
+    public Result sendMessage(String tel , Integer type){
+        return null;
+    }
 }

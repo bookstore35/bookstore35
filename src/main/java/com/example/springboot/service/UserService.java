@@ -13,4 +13,10 @@ public interface UserService {
 
     public Result getById(Integer id);
 
+
+    //登录接口
+    public Result login(String username,String password);
+
+    //
+    public Result sendMessage(String tel ,Integer type);
 }

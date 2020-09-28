@@ -4,6 +4,7 @@ import com.example.springboot.entity.Book;
 import com.example.springboot.service.BookService;
 import com.example.springboot.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,4 +37,16 @@ public class BookController {
         return this.bookService.insert(book);
     }
 
+
+    @PostMapping
+    @RequestMapping("/update")
+    public Result update(@RequestBody Book book){
+        return this.bookService.update(book);
+    }
+
+    @DeleteMapping
+    @RequestMapping("/delete")
+    public Result deleteById(int id){
+        return this.bookService.delete(id);
+    }
 }

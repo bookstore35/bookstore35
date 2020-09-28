@@ -6,7 +6,9 @@ import com.example.springboot.service.BookService;
 import com.example.springboot.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
+import javax.persistence.Id;
 import java.util.List;
 
 @Service
@@ -22,7 +24,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Result getById(Integer id) {
+    public Result getById(int id) {
         Book book = bookDao.findById(id).get();//根据id查询用户;
         return Result.success(book);
     }
@@ -42,6 +44,15 @@ public class BookServiceImpl implements BookService {
         book = this.bookDao.save(book);
         return Result.success(book);
     }
-
+    @Override
+    public Result update(Book book){
+        book = this.bookDao.save(book);
+        return Result.success("修改成功!");
+    }
+    @Override
+    public Result delete(int id){
+        this.bookDao.deleteById(id);
+        return Result.success("删除成功！");
+    }
 
 }

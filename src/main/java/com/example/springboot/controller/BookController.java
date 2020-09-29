@@ -9,21 +9,40 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * 书籍管理接口类
+ */
 @RestController
 @RequestMapping("/book")
 public class BookController {
     @Autowired
     private BookService bookService;
 
+    /**
+     * 查找全部书本
+     * @return
+     */
     @GetMapping("/findAll")
     public List<Book> findAll(){
         return bookService.findAll();
     }
+
+    /**
+     * 根据id查询书本信息
+     * @param id
+     * @return
+     */
     @GetMapping
     @RequestMapping("/getById")
     public Result getById(Integer id){
         return bookService.getById(id);
     }
+
+    /**
+     * 根据书名查询书本信息
+     * @param bookName
+     * @return
+     */
     @GetMapping
     @RequestMapping("/getByBookName")
     public Result getByBookName(String bookName){
@@ -31,19 +50,33 @@ public class BookController {
     }
 
 
+    /**
+     * 添加书本信息
+     * @param book
+     * @return
+     */
     @PostMapping
     @RequestMapping("/insert")
     public Result insert(@RequestBody Book book) {
         return this.bookService.insert(book);
     }
 
-
+    /**
+     * 修改书本信息
+     * @param book
+     * @return
+     */
     @PostMapping
     @RequestMapping("/update")
     public Result update(@RequestBody Book book){
         return this.bookService.update(book);
     }
 
+    /**
+     * 删除书本
+     * @param id
+     * @return
+     */
     @DeleteMapping
     @RequestMapping("/delete")
     public Result deleteById(int id){

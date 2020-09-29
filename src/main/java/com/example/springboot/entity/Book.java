@@ -24,12 +24,28 @@ public class Book {
     private String ISBN;
     @Column(name="images_url")
     private String imagesUrl;
+    @Column
+    private String category;
+    @Column
+    private String modifyCategory;
+    @Column
+    private String ggct;
+    @Column
+    private String  returnGoods;
+    @Column
+    private String invoice;
+    @Column
+    private String promise;
+    @Column
+    private String region;
+    @Column
+    private String specialOffer;
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -89,6 +105,70 @@ public class Book {
         this.imagesUrl = imagesUrl;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getModifyCategory() {
+        return modifyCategory;
+    }
+
+    public void setModifyCategory(String modifyCategory) {
+        this.modifyCategory = modifyCategory;
+    }
+
+    public String getGgct() {
+        return ggct;
+    }
+
+    public void setGgct(String ggct) {
+        this.ggct = ggct;
+    }
+
+    public String getReturnGoods() {
+        return returnGoods;
+    }
+
+    public void setReturnGoods(String returnGoods) {
+        this.returnGoods = returnGoods;
+    }
+
+    public String getInvoice() {
+        return invoice;
+    }
+
+    public void setInvoice(String invoice) {
+        this.invoice = invoice;
+    }
+
+    public String getPromise() {
+        return promise;
+    }
+
+    public void setPromise(String promise) {
+        this.promise = promise;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public String getSpecialOffer() {
+        return specialOffer;
+    }
+
+    public void setSpecialOffer(String specialOffer) {
+        this.specialOffer = specialOffer;
+    }
+
     @Override
     public String toString() {
         return "Book{" +
@@ -100,6 +180,14 @@ public class Book {
                 ", introduce='" + introduce + '\'' +
                 ", ISBN='" + ISBN + '\'' +
                 ", imagesUrl='" + imagesUrl + '\'' +
+                ", category='" + category + '\'' +
+                ", modifyCategory='" + modifyCategory + '\'' +
+                ", ggct='" + ggct + '\'' +
+                ", returnGoods='" + returnGoods + '\'' +
+                ", invoice='" + invoice + '\'' +
+                ", promise='" + promise + '\'' +
+                ", region='" + region + '\'' +
+                ", specialOffer='" + specialOffer + '\'' +
                 '}';
     }
 }

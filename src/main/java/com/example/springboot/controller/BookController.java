@@ -26,6 +26,16 @@ public class BookController {
     public List<Book> findAll(){
         return bookService.findAll();
     }
+    /**
+     * 书名模糊查询
+     * @param bookName
+     * @return
+     */
+    @GetMapping("/getBookNameLike/{bookName}")
+    public List<Book> getBookNameLike(@PathVariable("bookName") String bookName){
+        List<Book> books = bookService.findByBookNameLike(bookName);
+        return books;
+    }
 
     /**
      * 根据id查询书本信息

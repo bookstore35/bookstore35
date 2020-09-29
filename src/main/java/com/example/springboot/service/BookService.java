@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface BookService {
     List<Book> findAll();
+    List<Book> findByBookNameLike(String bookName);
     public Result getById(int id);
     public Result getByBookName(String bookName);
     public Result insert(Book book);

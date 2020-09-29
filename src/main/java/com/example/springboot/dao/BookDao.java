@@ -11,6 +11,8 @@ import java.util.List;
 public interface BookDao extends JpaRepository<Book,Integer> {
     List<Book> findAll();
 
+    List<Book> findByBookNameLike(String bookName);
+
     public Book findByBookName(String bookName);
 
 

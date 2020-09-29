@@ -24,6 +24,11 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public List<Book> findByBookNameLike(String bookName) {
+        return bookDao.findByBookNameLike("%"+bookName+"%");
+    }
+
+    @Override
     public Result getById(int id) {
         Book book = bookDao.findById(id).get();//根据id查询用户;
         return Result.success(book);

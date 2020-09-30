@@ -15,7 +15,7 @@ public interface UserService {
 
 
     //登录接口
-    public Result login(String username,String password);
+    public Result login(String username,String password );
 
     //
     public Result sendMessage(String tel ,Integer type);

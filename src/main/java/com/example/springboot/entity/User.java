@@ -9,26 +9,41 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column
-    private String username;
-    @Column
-    private String password;
-    @Column
-    private String alias;
-    @Column
-    private String name;
-    @Column
-    private String gender;
-    @Column
-    private String email;
-    @Column
-    private String tel ;
-    @Column(name="delivery_address")
-    private String deliveryAddress;
-    @Column(name="payment_way")
-    private Integer paymentWay ;
-    @Column(name="images_url")
-    private String imagesUrl;
+    @Column(length = 50)
+    private String username; //用户名
+
+    @Column(length = 50)
+    private String password; // 密码
+
+    @Column(length = 50)
+    private String alias; // 昵称
+
+    @Column(length = 20)
+    private String name;  // 真实姓名
+
+    @Column(length = 10)
+    private String gender; // 性别
+
+    @Column(length = 50)
+    private String email;  //邮箱
+
+    @Column(length = 15)
+    private String mobile ; //手机号码
+
+    @Column(length = 50)
+    private String birth;   //出生年月
+
+    @Column(name="id_card_num",length = 18)
+    private String idCardNum;  // 身份证号码
+
+    @Column(length = 20)
+    private String region;  // 地区
+
+    @Column(length = 20)
+    private String level;   //等级
+
+    @Column(name="head_image",length = 254)
+    private String headImage;   //头像
 
     public Integer getId() {
         return id;
@@ -86,36 +101,51 @@ public class User {
         this.email = email;
     }
 
-    public String getTel() {
-        return tel;
+    public String getMobile() {
+        return mobile;
     }
 
-    public void setTel(String tel) {
-        this.tel = tel;
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
-
-    public Integer getPaymentWay() {
-        return paymentWay;
+    public String getBirth() {
+        return birth;
     }
 
-    public void setPaymentWay(Integer paymentWay) {
-        this.paymentWay = paymentWay;
+    public void setBirth(String birth) {
+        this.birth = birth;
     }
 
-    public String getDeliveryAddress() {
-        return deliveryAddress;
+    public String getIdCardNum() {
+        return idCardNum;
     }
 
-    public void setDeliveryAddress(String deliveryAddress) {
-        this.deliveryAddress = deliveryAddress;
+    public void setIdCardNum(String idCardNum) {
+        this.idCardNum = idCardNum;
     }
 
-    public String getImagesUrl() {
-        return imagesUrl;
+    public String getRegion() {
+        return region;
     }
 
-    public void setImagesUrl(String imagesUrl) {
-        this.imagesUrl = imagesUrl;
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
+    public String getHeadImage() {
+        return headImage;
+    }
+
+    public void setHeadImage(String headImage) {
+        this.headImage = headImage;
     }
 }

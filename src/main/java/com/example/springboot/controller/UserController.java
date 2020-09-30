@@ -3,9 +3,12 @@ package com.example.springboot.controller;
 import com.example.springboot.aop.UserLoginToken;
 import com.example.springboot.entity.User;
 import com.example.springboot.service.UserService;
+import com.example.springboot.utils.CodeUtil;
 import com.example.springboot.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/user")
@@ -31,11 +34,14 @@ public class UserController {
         return userService.getById(id);
     }
 
+
     @GetMapping
     @RequestMapping("/login")
-    public Result login(String username ,String password){
-
-        return userService.login(username ,password);
+    public Result login(String username , String password , HttpServletRequest request){
+        if (!CodeUtil.checkVerifyCode(request)) {
+            return Result.error("验证码出错");
+        }
+        return userService.login(username ,password );
     }
     @GetMapping
     @RequestMapping("/send")

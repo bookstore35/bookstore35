@@ -17,12 +17,23 @@ public class BooksServiceImpl implements BooksClassService {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    /**
+     * jpa对象
+     * @param id
+     * @return
+     */
+
 
     @Override
     public List<BooksClass> selectBooksClass(Integer id) {
+        /*
+           查询方法
+        */
         String sql = "SELECT t1.* from book_class t1 join (SELECT @r AS _id, (SELECT @r:=pid FROM book_class WHERE id = _id) AS pid FROM (SELECT @r:=?) vars, book_class WHERE @r<>0 ) t2 on t2._id=t1.id where 1=1";
         RowMapper<BooksClass> rowMapper = new RowMapper<BooksClass>() {
-
+            /*
+                将数据库的查询数据传入到booksClass
+             */
             @Override
             public BooksClass mapRow(ResultSet resultSet, int i) throws SQLException {
                 BooksClass booksClass = new BooksClass();
@@ -37,7 +48,9 @@ public class BooksServiceImpl implements BooksClassService {
             }
         };
 
-
-        return jdbcTemplate.query(sql,rowMapper,id);
+        /*
+            返回执行数据库操作
+         */
+        return jdbcTemplate.query(sql,rowMapper,id); //sql、rowMapper固定，id是传给sql？的参数
     }
 }

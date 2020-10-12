@@ -39,6 +39,7 @@ public class Result {
 
     //包装
     public static Result success(Object data){
+
         return new Result(CODE.SUCCESS, data, "");
     }
     public static Result error(String msg){
@@ -46,5 +47,14 @@ public class Result {
     }
     public static Result error(int code,String msg){
         return new Result(code, null, msg);
+    }
+
+    @Override
+    public String toString() {
+        return "Result{" +
+                "code=" + code +
+                ", data=" + data +
+                ", msg='" + msg + '\'' +
+                '}';
     }
 }

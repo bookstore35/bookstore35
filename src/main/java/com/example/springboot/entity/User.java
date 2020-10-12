@@ -45,6 +45,9 @@ public class User {
     @Column(name="head_image",length = 254)
     private String headImage;   //头像
 
+
+
+
     public Integer getId() {
         return id;
     }

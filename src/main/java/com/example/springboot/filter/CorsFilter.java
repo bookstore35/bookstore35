@@ -10,6 +10,7 @@ import java.io.IOException;
 /**
  * @author Liangyifeng
  * @created 2020/9/28/09:10
+ * 前后端跨域访问
  */
 @Component
 public class CorsFilter implements Filter{

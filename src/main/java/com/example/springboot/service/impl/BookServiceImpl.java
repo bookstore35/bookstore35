@@ -29,7 +29,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Result getById(int id) {
+    public Result getById(Integer id) {
         Book book = bookDao.findById(id).get();//根据id查询用户;
         return Result.success(book);
     }
@@ -55,7 +55,7 @@ public class BookServiceImpl implements BookService {
         return Result.success("修改成功!");
     }
     @Override
-    public Result delete(int id){
+    public Result delete(Integer id){
         this.bookDao.deleteById(id);
         return Result.success("删除成功！");
     }

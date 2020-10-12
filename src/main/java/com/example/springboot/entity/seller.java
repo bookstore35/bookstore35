@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class seller {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int seller_id;
+    private Integer seller_id;
 
     @Column
     private String seller_name;
@@ -23,11 +23,11 @@ public class seller {
     @Column
     private String address;
 
-    public int getSeller_id() {
+    public Integer getSeller_id() {
         return seller_id;
     }
 
-    public void setSeller_id(int seller_id) {
+    public void setSeller_id(Integer seller_id) {
         this.seller_id = seller_id;
     }
 

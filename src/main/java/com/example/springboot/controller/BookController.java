@@ -89,7 +89,7 @@ public class BookController {
      */
     @DeleteMapping
     @RequestMapping("/delete")
-    public Result deleteById(int id){
+    public Result deleteById(Integer id){
         return this.bookService.delete(id);
     }
 }

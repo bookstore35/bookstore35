@@ -9,9 +9,9 @@ import java.util.List;
 public interface BookService {
     List<Book> findAll();
     List<Book> findByBookNameLike(String bookName);
-    public Result getById(int id);
+    public Result getById(Integer id);
     public Result getByBookName(String bookName);
     public Result insert(Book book);
-    public Result delete(int id);
+    public Result delete(Integer id);
     public Result update(Book book);
 }

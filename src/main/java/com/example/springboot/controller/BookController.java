@@ -23,8 +23,8 @@ public class BookController {
      * @return
      */
     @GetMapping("/findAll")
-    public List<Book> findAll(){
-        return bookService.findAll();
+    public Result findAll(){
+        return Result.success(bookService.findAll());
     }
     /**
      * 书名模糊查询
@@ -32,9 +32,9 @@ public class BookController {
      * @return
      */
     @GetMapping("/getBookNameLike/{bookName}")
-    public List<Book> getBookNameLike(@PathVariable("bookName") String bookName){
+    public Result getBookNameLike(@PathVariable("bookName") String bookName){
         List<Book> books = bookService.findByBookNameLike(bookName);
-        return books;
+        return Result.success(books);
     }
 
     /**

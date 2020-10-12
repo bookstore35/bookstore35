@@ -8,6 +8,7 @@ package com.example.springboot.filter;
 import com.example.springboot.aop.PassToken;
 import com.example.springboot.aop.UserLoginToken;
 import com.example.springboot.config.JwtConfig;
+import com.example.springboot.service.RedisService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.SignatureException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
     //注入  JwtConfig
     @Autowired
     private JwtConfig jwtConfig;
+
+    @Autowired
+    private RedisService redisService;
 
     @Override
     public boolean preHandle(HttpServletRequest request,
@@ -54,7 +58,8 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
                 return false;
             }
             String userName = jwtConfig.getUsernameFromToken(token);
-            String compareToken = jwtConfig.getTokenMap().get(userName);
+           // String compareToken = jwtConfig.getTokenMap().get(userName);
+            String compareToken = redisService.getValueByKey(userName);
             if (compareToken == null || !compareToken.equals(token)) {
                 response.sendError(400, "token不存在,请重新登录");
                 return false;
@@ -79,7 +84,8 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
             }
             if (compareToken == null) {
                 // 由于服务器war重新上传导致临时数据丢失,需要重新存储
-                jwtConfig.getTokenMap().put(userName, token);
+                //jwtConfig.getTokenMap().put(userName, token);
+                redisService.addKey(userName,token);
             }
         }
 

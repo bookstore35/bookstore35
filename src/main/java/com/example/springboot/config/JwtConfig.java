@@ -1,8 +1,10 @@
 package com.example.springboot.config;
 
+import com.example.springboot.service.RedisService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Calendar;
@@ -19,11 +21,15 @@ import java.util.Map;
 public class JwtConfig {
 
 
+
     private String secret = "ZW]4l5JH[m6Lm)LaQEjpb!4E0lRaG(";
     // 外部http请求中 header中 token的 键值
     private String header = "token";
     // 新建HashMap
-    private static Map<String, String> tokenMap = new HashMap<>();
+//    private static Map<String, String> tokenMap = new HashMap<>();
+
+    @Autowired
+    private RedisService redisService;
 
     /**
      * 生成token
@@ -51,7 +57,8 @@ public class JwtConfig {
                 .signWith(SignatureAlgorithm.HS512, secret)
                 .compact();
         // Map把token添加到缓存中
-        tokenMap.put(subject, userToken);
+        redisService.addKey(subject,userToken);
+//        tokenMap.put(subject, userToken);
         return userToken;
     }
         //创建刷新token方法
@@ -134,13 +141,13 @@ public class JwtConfig {
         this.header = header;
     }
 
-    public static Map<String, String> getTokenMap() {
-        return tokenMap;
-    }
-
-    public static void setTokenMap(Map<String, String> tokenMap) {
-        JwtConfig.tokenMap = tokenMap;
-    }
+//    public static Map<String, String> getTokenMap() {
+//        return tokenMap;
+//    }
+//
+//    public static void setTokenMap(Map<String, String> tokenMap) {
+//        JwtConfig.tokenMap = tokenMap;
+//    }
 
 
 

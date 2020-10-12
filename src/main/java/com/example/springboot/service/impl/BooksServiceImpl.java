@@ -29,7 +29,7 @@ public class BooksServiceImpl implements BooksClassService {
         /*
            查询方法
         */
-        String sql = "SELECT t1.* from book_class t1 join (SELECT @r AS _id, (SELECT @r:=pid FROM book_class WHERE id = _id) AS pid FROM (SELECT @r:=?) vars, book_class WHERE @r<>0 ) t2 on t2._id=t1.id where 1=1";
+        String sql = "SELECT t1.* from books_class t1 join (SELECT @r AS _id, (SELECT @r:=pid FROM books_class WHERE id = _id) AS pid FROM (SELECT @r:=?) vars, books_class WHERE @r<>0 ) t2 on t2._id=t1.id where 1=1";
         RowMapper<BooksClass> rowMapper = new RowMapper<BooksClass>() {
             /*
                 将数据库的查询数据传入到booksClass

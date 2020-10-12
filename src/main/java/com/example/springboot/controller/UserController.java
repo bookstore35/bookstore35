@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/user")
 public class UserController {
     @Autowired
+    private CodeUtil codeUtil;
+    @Autowired
     private UserService userService;
 
     /**
@@ -31,17 +33,19 @@ public class UserController {
     @GetMapping
     @RequestMapping("/getById")
     public Result getById(Integer id){
+
         return userService.getById(id);
     }
+
 
 
     @GetMapping
     @RequestMapping("/login")
     public Result login(String username , String password , HttpServletRequest request){
-        if (!CodeUtil.checkVerifyCode(request)) {
+        if (!codeUtil.checkVerifyCode(request)) {
             return Result.error("验证码出错");
         }
-        return userService.login(username ,password );
+        return userService.login(username ,password);
     }
     @GetMapping
     @RequestMapping("/send")

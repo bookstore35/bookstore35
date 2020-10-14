@@ -1,5 +1,7 @@
 package com.example.springboot.entity;
 
+import sun.security.util.Password;
+
 import javax.persistence.*;
 
 /**
@@ -11,24 +13,27 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "seller")
-public class seller {
+public class Seller {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer seller_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     @Column
-    private String seller_name;
+    private String seller_name; //店铺名称
     @Column
-    private String pwd;
+    private String username; //用户名
     @Column
-    private String address;
+    private String password; //密码
+    @Column
+    private String address; //地址
 
-    public Integer getSeller_id() {
-        return seller_id;
+
+    public Integer getId() {
+        return id;
     }
 
-    public void setSeller_id(Integer seller_id) {
-        this.seller_id = seller_id;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getSeller_name() {
@@ -39,12 +44,20 @@ public class seller {
         this.seller_name = seller_name;
     }
 
-    public String getPwd() {
-        return pwd;
+    public String getUsername() {
+        return username;
     }
 
-    public void setPwd(String pwd) {
-        this.pwd = pwd;
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getAddress() {
@@ -53,16 +66,6 @@ public class seller {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    @Override
-    public String toString() {
-        return "seller{" +
-                "seller_id=" + seller_id +
-                ", seller_name='" + seller_name + '\'' +
-                ", pwd='" + pwd + '\'' +
-                ", address='" + address + '\'' +
-                '}';
     }
 }
 /**

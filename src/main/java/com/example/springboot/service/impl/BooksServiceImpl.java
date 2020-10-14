@@ -1,5 +1,6 @@
 package com.example.springboot.service.impl;
 
+import com.example.springboot.Vo.BooksVo;
 import com.example.springboot.entity.BooksClass;
 import com.example.springboot.service.BooksClassService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,5 +53,10 @@ public class BooksServiceImpl implements BooksClassService {
             返回执行数据库操作
          */
         return jdbcTemplate.query(sql,rowMapper,id); //sql、rowMapper固定，id是传给sql？的参数
+    }
+
+    @Override
+    public List<BooksVo> selectBooksVo(Integer id) {
+        return null;
     }
 }

@@ -39,7 +39,7 @@ public class Book {
     @Column
     private String region;      //发货地
     @Column
-    private String specialOffer;        //暂时用不到
+    private String specialOffer;      //特价
 
     @Override
     public String toString() {

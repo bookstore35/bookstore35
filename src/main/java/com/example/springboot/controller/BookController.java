@@ -24,7 +24,7 @@ public class BookController {
      * @return
      */
     @GetMapping("/findAll")
-    public Result findAll(){
+    public Result<Book> findAll(){
         return Result.success(bookService.findAll());
     }
 
@@ -33,7 +33,7 @@ public class BookController {
      * @return
      */
     @GetMapping("/selectAll")
-    public Result selectAll(){
+    public Result<Book> selectAll(){
         return Result.success(bookService.selectALl());
     }
 
@@ -43,7 +43,7 @@ public class BookController {
      * @return
      */
     @GetMapping("/getBookNameLike/{bookName}")
-    public Result getBookNameLike(@PathVariable("bookName") String bookName){
+    public Result<Book> getBookNameLike(@PathVariable("bookName") String bookName){
         List<Book> books = bookService.findByBookNameLike(bookName);
         return Result.success(books);
     }
@@ -55,7 +55,7 @@ public class BookController {
      */
     @GetMapping
     @RequestMapping("/getById")
-    public Result getById(Integer id){
+    public Result<Book> getById(Integer id){
         return bookService.getById(id);
     }
 
@@ -66,7 +66,7 @@ public class BookController {
      */
     @GetMapping
     @RequestMapping("/getByBookName")
-    public Result getByBookName(String bookName){
+    public Result<Book> getByBookName(String bookName){
         return bookService.getByBookName(bookName);
     }
 
@@ -78,7 +78,7 @@ public class BookController {
      */
     @PostMapping
     @RequestMapping("/insert")
-    public Result insert(@RequestBody Book book) {
+    public Result<Book> insert(@RequestBody Book book) {
         return this.bookService.insert(book);
     }
 
@@ -89,7 +89,7 @@ public class BookController {
      */
     @PostMapping
     @RequestMapping("/update")
-    public Result update(@RequestBody Book book){
+    public Result<Book> update(@RequestBody Book book){
         return this.bookService.update(book);
     }
 
@@ -100,9 +100,9 @@ public class BookController {
      */
     @DeleteMapping
     @RequestMapping("/delete")
-    public Result deleteById(Integer id){
+    public Result<Book> deleteById(Integer id){
         return this.bookService.delete(id);
     }
-
+    // Result<Book>--data里面的数据类型是什么<>里面就放什么 例如：<Book>
 
 }

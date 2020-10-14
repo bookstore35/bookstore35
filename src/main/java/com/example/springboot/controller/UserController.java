@@ -1,6 +1,7 @@
 package com.example.springboot.controller;
 
 import com.example.springboot.aop.UserLoginToken;
+import com.example.springboot.entity.BooksClass;
 import com.example.springboot.entity.User;
 import com.example.springboot.service.UserService;
 import com.example.springboot.utils.CodeUtil;
@@ -25,14 +26,14 @@ public class UserController {
      */
     @PostMapping
     @RequestMapping("/regist")
-    public Result regist(@RequestBody User user){
+    public Result<User> regist(@RequestBody User user){
         return this.userService. regist(user);
     }
 
     @UserLoginToken
     @GetMapping
     @RequestMapping("/getById")
-    public Result getById(Integer id){
+    public Result<User>  getById(Integer id){
 
         return userService.getById(id);
     }
@@ -41,7 +42,7 @@ public class UserController {
 
     @GetMapping
     @RequestMapping("/login")
-    public Result login(String username , String password , HttpServletRequest request){
+    public Result<User>  login(String username , String password , HttpServletRequest request){
         if (!codeUtil.checkVerifyCode(request)) {
             return Result.error("验证码出错");
         }

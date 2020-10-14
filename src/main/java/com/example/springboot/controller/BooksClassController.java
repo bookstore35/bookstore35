@@ -19,7 +19,7 @@ public class BooksClassController {
 
     @GetMapping
     @RequestMapping("/booksClass")
-    public Result selectBooksClass(Integer id){
+    public Result<BooksClass> selectBooksClass(Integer id){
 
         return Result.success(booksClassService.selectBooksClass(id));
     }

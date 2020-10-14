@@ -1,12 +1,12 @@
 package com.example.springboot.utils;
 
-public class Result {
+public class Result<T> {
 
     private int code;//0代表成功，1代表失败，403代表未登陆
-    private Object data;//接口返回数据
+    private T data;//接口返回数据
     private String msg;//提示信息
 
-    public Result(int code, Object data, String msg) {
+    public Result(int code, T data, String msg) {
         this.code = code;
         this.data = data;
         this.msg = msg;
@@ -33,7 +33,7 @@ public class Result {
         return data;
     }
 
-    public void setData(Object data) {
+    public void setData(T data) {
         this.data = data;
     }
 

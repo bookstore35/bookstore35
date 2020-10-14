@@ -10,37 +10,58 @@ public class Book {
     private Integer id;
 
     @Column
-    private Integer cid;
+    private Integer cid;    //分类id
     @Column
-    private String bookName;
+    private String bookName;    //书名
     @Column
-    private String publisher;
+    private String publisher;   //出版社
     @Column
-    private String author;
+    private String author;  //作者名称
     @Column
-    private Float price;
+    private Float price;    //价格
     @Column
-    private String introduce;
+    private String introduce;   //内容介绍
     @Column
-    private String ISBN;
+    private String ISBN;    //书本编号
     @Column(name="images_url")
-    private String imagesUrl;
+    private String imagesUrl;   //书本封面（图片）
+
     @Column
-    private String category;
+    private String modifyCategory;  //暂时用不到
     @Column
-    private String modifyCategory;
+    private String ggct;    //暂时用不到
     @Column
-    private String ggct;
+    private String  returnGoods;    //暂时用不到
     @Column
-    private String  returnGoods;
+    private String invoice;     //暂时用不到
     @Column
-    private String invoice;
+    private String promise;     //暂时用不到
     @Column
-    private String promise;
+    private String region;      //发货地
     @Column
-    private String region;
-    @Column
-    private String specialOffer;
+    private String specialOffer;        //暂时用不到
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", cid=" + cid +
+                ", bookName='" + bookName + '\'' +
+                ", publisher='" + publisher + '\'' +
+                ", author='" + author + '\'' +
+                ", price=" + price +
+                ", introduce='" + introduce + '\'' +
+                ", ISBN='" + ISBN + '\'' +
+                ", imagesUrl='" + imagesUrl + '\'' +
+                ", modifyCategory='" + modifyCategory + '\'' +
+                ", ggct='" + ggct + '\'' +
+                ", returnGoods='" + returnGoods + '\'' +
+                ", invoice='" + invoice + '\'' +
+                ", promise='" + promise + '\'' +
+                ", region='" + region + '\'' +
+                ", specialOffer='" + specialOffer + '\'' +
+                '}';
+    }
 
     public Integer getId() {
         return id;
@@ -114,14 +135,6 @@ public class Book {
         this.imagesUrl = imagesUrl;
     }
 
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
     public String getModifyCategory() {
         return modifyCategory;
     }
@@ -176,28 +189,5 @@ public class Book {
 
     public void setSpecialOffer(String specialOffer) {
         this.specialOffer = specialOffer;
-    }
-
-    @Override
-    public String toString() {
-        return "Book{" +
-                "id=" + id +
-                ", cid=" + cid +
-                ", bookName='" + bookName + '\'' +
-                ", publisher='" + publisher + '\'' +
-                ", author='" + author + '\'' +
-                ", price=" + price +
-                ", introduce='" + introduce + '\'' +
-                ", ISBN='" + ISBN + '\'' +
-                ", imagesUrl='" + imagesUrl + '\'' +
-                ", category='" + category + '\'' +
-                ", modifyCategory='" + modifyCategory + '\'' +
-                ", ggct='" + ggct + '\'' +
-                ", returnGoods='" + returnGoods + '\'' +
-                ", invoice='" + invoice + '\'' +
-                ", promise='" + promise + '\'' +
-                ", region='" + region + '\'' +
-                ", specialOffer='" + specialOffer + '\'' +
-                '}';
     }
 }

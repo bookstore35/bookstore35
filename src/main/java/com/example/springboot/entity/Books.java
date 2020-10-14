@@ -24,8 +24,7 @@ public class Books {
     private String ISBN;
     @Column(name="images_url")
     private String imagesUrl;
-    @Column
-    private String category;
+
     @Column
     private String modifyCategory;
     @Column
@@ -55,7 +54,6 @@ public class Books {
                 ", introduce='" + introduce + '\'' +
                 ", ISBN='" + ISBN + '\'' +
                 ", imagesUrl='" + imagesUrl + '\'' +
-                ", category='" + category + '\'' +
                 ", modifyCategory='" + modifyCategory + '\'' +
                 ", ggct='" + ggct + '\'' +
                 ", returnGoods='" + returnGoods + '\'' +
@@ -137,14 +135,6 @@ public class Books {
 
     public void setImagesUrl(String imagesUrl) {
         this.imagesUrl = imagesUrl;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
     }
 
     public String getModifyCategory() {

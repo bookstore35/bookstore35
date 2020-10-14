@@ -10,13 +10,13 @@ public class BooksClass {
     private Integer id;
 
     @Column
-    private String name;
+    private String name;    //分类名称
 
     @Column
-    private Integer pid;
+    private Integer pid;    //对应上级分类
 
     @Column
-    private Integer level;
+    private Integer level;  //层次
 
     @Override
     public String toString() {

@@ -1,7 +1,9 @@
 package com.example.springboot.service.impl;
 
 import com.example.springboot.dao.BookDao;
+import com.example.springboot.dao.BooksDao;
 import com.example.springboot.entity.Book;
+import com.example.springboot.entity.Books;
 import com.example.springboot.service.BookService;
 import com.example.springboot.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,8 @@ public class BookServiceImpl implements BookService {
 
     @Autowired
     private BookDao bookDao;
+    @Autowired
+    private BooksDao booksDao;
 
 
     @Override
@@ -54,10 +58,18 @@ public class BookServiceImpl implements BookService {
         book = this.bookDao.save(book);
         return Result.success("修改成功!");
     }
+
+
+
     @Override
     public Result delete(Integer id){
         this.bookDao.deleteById(id);
         return Result.success("删除成功！");
     }
 
+
+    @Override
+    public List<Books> selectALl() {
+        return this.booksDao.countDeviceInfoByCondition3();
+    }
 }

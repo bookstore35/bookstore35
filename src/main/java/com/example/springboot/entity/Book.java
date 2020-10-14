@@ -3,13 +3,14 @@ package com.example.springboot.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "book")
 public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    @Column
+    private Integer cid;
     @Column
     private String bookName;
     @Column
@@ -47,6 +48,14 @@ public class Book {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getCid() {
+        return cid;
+    }
+
+    public void setCid(Integer cid) {
+        this.cid = cid;
     }
 
     public String getBookName() {
@@ -173,6 +182,7 @@ public class Book {
     public String toString() {
         return "Book{" +
                 "id=" + id +
+                ", cid=" + cid +
                 ", bookName='" + bookName + '\'' +
                 ", publisher='" + publisher + '\'' +
                 ", author='" + author + '\'' +

@@ -18,6 +18,7 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
+
     /**
      * 查找全部书本
      * @return
@@ -26,6 +27,16 @@ public class BookController {
     public Result findAll(){
         return Result.success(bookService.findAll());
     }
+
+    /**
+     * 查询全部（书本内容+书本级别分类）
+     * @return
+     */
+    @GetMapping("/selectAll")
+    public Result selectAll(){
+        return Result.success(bookService.selectALl());
+    }
+
     /**
      * 书名模糊查询
      * @param bookName
@@ -92,4 +103,6 @@ public class BookController {
     public Result deleteById(Integer id){
         return this.bookService.delete(id);
     }
+
+
 }

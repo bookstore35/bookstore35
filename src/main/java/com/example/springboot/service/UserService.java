@@ -14,9 +14,11 @@ public interface UserService {
     public Result getById(Integer id);
 
 
-    //登录接口
+    //手机号、密码登录接口
     public Result login(String username,String password );
 
+    //手机验证码登录接口
+    public Result loginVerify(String mobile,String code);
     //
     public Result sendMessage(String tel ,Integer type);
 }

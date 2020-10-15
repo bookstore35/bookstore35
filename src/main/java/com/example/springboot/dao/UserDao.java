@@ -13,4 +13,6 @@ public interface UserDao extends JpaRepository<User,Integer> {
      * @return
      */
     public User getByUsername(String username);
+
+    public User getByMobile(String mobile);
 }

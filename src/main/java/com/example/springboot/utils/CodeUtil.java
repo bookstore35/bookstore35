@@ -50,14 +50,16 @@ public class CodeUtil {
      * @param request
      * @return
      */
-    public  boolean checkVerifyCode(HttpServletRequest request) {
+    public  boolean checkVerifyCode(HttpServletRequest request) throws Exception{
 
         //1.获取生成的验证码
         //String verifyCodeExpected = (String) request.getSession().getAttribute(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);
 
         String id = request.getSession().getId();
         String verifyCodeExpected = redisService.getValueByKey(id);
-
+        if(verifyCodeExpected == null){
+            throw new Exception("验证码已过期！");
+        }
 
         //2-1.获取用户输入的验证码---验证码的值
 

@@ -14,6 +14,9 @@ public interface RedisService {
      * @param value
      */
      public  void addKey(String key, String value);
+     public  void addKey(String key, String value,Integer second);
+
+
 
     /**
      * 通过key获取对应的value
@@ -21,4 +24,6 @@ public interface RedisService {
      * @return
      */
      public  String getValueByKey(String key);
+
+     public void delete(String key);
 }

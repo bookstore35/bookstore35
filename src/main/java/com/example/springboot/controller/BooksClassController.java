@@ -1,6 +1,7 @@
 package com.example.springboot.controller;
 
 
+import com.example.springboot.Vo.BooksVo;
 import com.example.springboot.entity.BooksClass;
 import com.example.springboot.service.BooksClassService;
 import com.example.springboot.utils.Result;
@@ -23,5 +24,13 @@ public class BooksClassController {
 
         return Result.success(booksClassService.selectBooksClass(id));
     }
+
+    @GetMapping
+    @RequestMapping("/booksVo")
+    public Result<BooksVo> selectBooksVo(){
+
+        return Result.success(booksClassService.selectBooksVo());
+    }
+
 
 }

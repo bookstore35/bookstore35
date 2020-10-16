@@ -56,7 +56,39 @@ public class BooksServiceImpl implements BooksClassService {
     }
 
     @Override
-    public List<BooksVo> selectBooksVo(Integer id) {
-        return null;
+    public List<BooksVo> selectBooksVo() {
+         /*
+           查询方法
+        */
+         StringBuffer sql2=new StringBuffer();
+         sql2.append("select a.id,a.book_name ,a.publisher,a.author,a.introduce,a.images_url,b.name,c.seller_name  from book a left join books_class b on a.cid=b.id inner join seller c on a.sid=c.sid");
+
+         RowMapper<BooksVo> rowMapper = new RowMapper<BooksVo>() {
+            /*
+                将数据库的查询数据传入到booksClass
+             */
+            @Override
+            public BooksVo mapRow(ResultSet resultSet, int i) throws SQLException {
+                BooksVo booksVo = new BooksVo();
+                if (resultSet.wasNull()){
+                    return  booksVo;
+                }
+                booksVo.setId(resultSet.getInt(1));
+
+                booksVo.setBookName(resultSet.getString(2));
+                booksVo.setPublisher(resultSet.getString(3));
+                booksVo.setAuthor(resultSet.getString(4));
+                booksVo.setIntroduce(resultSet.getString(5));
+                booksVo.setImagesUrl(resultSet.getString(6));
+                booksVo.setName(resultSet.getString(7));
+                booksVo.setSellerName(resultSet.getString(8));
+                return booksVo;
+            }
+        };
+
+        /*
+            返回执行数据库操作
+         */
+        return jdbcTemplate.query(sql2.toString(),rowMapper);
     }
 }

@@ -32,7 +32,7 @@ public class SellerController {
     @PostMapping
     @RequestMapping("/insert")
     public Result<Seller> insert(@RequestBody Seller seller) {
-        return null;
+        return sellerService.insert(seller);
     }
 
     /**
@@ -43,7 +43,7 @@ public class SellerController {
     @PostMapping
     @RequestMapping("/update")
     public Result<Seller> update(@RequestBody Seller seller){
-        return null;
+        return sellerService.update(seller);
     }
 
     /**
@@ -54,7 +54,8 @@ public class SellerController {
     @DeleteMapping
     @RequestMapping("/delete")
     public Result<Seller> deleteById(Integer id){
-        return null;
+        return sellerService.delete(id);
     }
+
 
 }

@@ -12,6 +12,8 @@ public class Book {
     @Column
     private Integer cid;    //分类id
     @Column
+    private Integer sid;  //店铺名id
+    @Column
     private String bookName;    //书名
     @Column
     private String publisher;   //出版社
@@ -46,6 +48,7 @@ public class Book {
         return "Book{" +
                 "id=" + id +
                 ", cid=" + cid +
+                ", sid=" + sid +
                 ", bookName='" + bookName + '\'' +
                 ", publisher='" + publisher + '\'' +
                 ", author='" + author + '\'' +
@@ -77,6 +80,14 @@ public class Book {
 
     public void setCid(Integer cid) {
         this.cid = cid;
+    }
+
+    public Integer getSid() {
+        return sid;
+    }
+
+    public void setSid(Integer sid) {
+        this.sid = sid;
     }
 
     public String getBookName() {

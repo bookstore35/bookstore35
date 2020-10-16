@@ -19,14 +19,15 @@ public class Seller {
     private Integer id;
 
     @Column
-    private String seller_name; //店铺名称
+    private Integer sid; //店铺id
+    @Column
+    private String sellerName; //店铺名称
     @Column
     private String username; //用户名
     @Column
     private String password; //密码
     @Column
     private String address; //地址
-
 
     public Integer getId() {
         return id;
@@ -36,12 +37,20 @@ public class Seller {
         this.id = id;
     }
 
-    public String getSeller_name() {
-        return seller_name;
+    public Integer getSid() {
+        return sid;
     }
 
-    public void setSeller_name(String seller_name) {
-        this.seller_name = seller_name;
+    public void setSid(Integer sid) {
+        this.sid = sid;
+    }
+
+    public String getSellerName() {
+        return sellerName;
+    }
+
+    public void setSellerName(String sellerName) {
+        this.sellerName = sellerName;
     }
 
     public String getUsername() {

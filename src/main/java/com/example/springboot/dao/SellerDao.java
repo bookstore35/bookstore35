@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface SellerDao extends JpaRepository<Seller,Integer> {
     List<Seller> findAll();
+    Seller findBySellerName(String sellerName);
 }

@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface BooksClassService {
     public List<BooksClass> selectBooksClass(Integer id);
-    List<BooksVo> selectBooksVo(Integer id);
+    List<BooksVo> selectBooksVo();
+
 }

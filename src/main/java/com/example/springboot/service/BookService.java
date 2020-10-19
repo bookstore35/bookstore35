@@ -2,7 +2,6 @@ package com.example.springboot.service;
 
 
 import com.example.springboot.entity.Book;
-import com.example.springboot.entity.Books;
 import com.example.springboot.utils.Result;
 
 import java.util.List;
@@ -15,5 +14,4 @@ public interface BookService {
     public Result insert(Book book);
     public Result delete(Integer id);
     public Result update(Book book);
-    List<Books> selectALl();
 }

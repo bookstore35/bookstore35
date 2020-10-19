@@ -4,7 +4,6 @@ import com.example.springboot.entity.Book;
 import com.example.springboot.service.BookService;
 import com.example.springboot.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,14 +27,6 @@ public class BookController {
         return Result.success(bookService.findAll());
     }
 
-    /**
-     * 查询全部（书本内容+书本级别分类）
-     * @return
-     */
-    @GetMapping("/selectAll")
-    public Result<Book> selectAll(){
-        return Result.success(bookService.selectALl());
-    }
 
     /**
      * 书名模糊查询

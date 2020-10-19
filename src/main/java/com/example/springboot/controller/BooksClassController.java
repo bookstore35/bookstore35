@@ -18,6 +18,11 @@ public class BooksClassController {
     @Autowired
     private BooksClassService booksClassService;
 
+    /**
+     * 查询书本分类
+     * @param id
+     * @return
+     */
     @GetMapping
     @RequestMapping("/booksClass")
     public Result<BooksClass> selectBooksClass(Integer id){
@@ -25,6 +30,10 @@ public class BooksClassController {
         return Result.success(booksClassService.selectBooksClass(id));
     }
 
+    /**
+     * 多表查询
+     * @return
+     */
     @GetMapping
     @RequestMapping("/booksVo")
     public Result<BooksVo> selectBooksVo(){

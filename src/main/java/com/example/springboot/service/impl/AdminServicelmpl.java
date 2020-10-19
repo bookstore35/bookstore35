@@ -3,6 +3,7 @@ package com.example.springboot.service.impl;
 import com.example.springboot.dao.AdminDao;
 import com.example.springboot.entity.Admin;
 import com.example.springboot.entity.Book;
+import com.example.springboot.entity.User;
 import com.example.springboot.service.AdminService;
 import com.example.springboot.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class AdminServicelmpl implements AdminService {
     @Override
     public Result insert(Admin admin) {
         Admin old = this.adminDao.findByAdminName(admin.getAdminName());
-        if(old != null){
+        if (old != null) {
             return Result.error("管理员已存在");
         }
         admin = this.adminDao.save(admin);
@@ -54,7 +55,20 @@ public class AdminServicelmpl implements AdminService {
     public Result<Admin> update(Admin admin) {
         return null;
     }
+
+    @Override
+    public Result login(String adminName, String password) {
+        Admin admin = this.adminDao.getByAdminName(adminName);
+        if (admin == null) {
+            return Result.error("用户名不存在");
+        }
+        if (!password.equals(admin.getPassword())) {
+            return Result.error("密码错误");
+        }
+        return Result.success("登录成功！");
+    }
 }
+
 /**
  * @ClassName : AdminServicelmpl
  * @Description : TODO

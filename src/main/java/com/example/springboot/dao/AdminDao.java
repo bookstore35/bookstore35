@@ -20,4 +20,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  **/
 public interface AdminDao extends JpaRepository<Admin,Integer> {
     Admin findByAdminName(String adminName);
+
+    Admin getByAdminName(String adminName);
 }

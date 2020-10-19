@@ -6,6 +6,8 @@ import com.example.springboot.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * 商家管理
  */
@@ -57,5 +59,14 @@ public class SellerController {
         return sellerService.delete(id);
     }
 
-
+    /**
+     * 登录商家
+     * @param
+     * @return
+     */
+    @GetMapping
+    @RequestMapping("/login")
+    public Result<Seller>  login(String username , String password , HttpServletRequest request){
+        return sellerService.login(username ,password);
+    }
 }

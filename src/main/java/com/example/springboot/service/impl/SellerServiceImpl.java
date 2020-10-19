@@ -43,4 +43,16 @@ public class SellerServiceImpl implements SellerService {
         return Result.success("删除成功！");
     }
 
+    @Override
+    public Result login(String username, String password) {
+        Seller seller = this.sellerDao.getByUsername(username);
+        if (seller == null) {
+            return Result.error("用户名不存在");
+        }
+        if (!password.equals(seller.getPassword())) {
+            return Result.error("密码错误");
+        }
+        return Result.success("登录成功！");
+    }
+
 }

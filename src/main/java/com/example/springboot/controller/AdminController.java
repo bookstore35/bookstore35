@@ -1,11 +1,14 @@
 package com.example.springboot.controller;
 
 import com.example.springboot.entity.Admin;
+import com.example.springboot.entity.User;
 import com.example.springboot.service.AdminService;
 import com.example.springboot.service.BookService;
 import com.example.springboot.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 管理员接口类
@@ -68,6 +71,17 @@ public class AdminController {
     @RequestMapping("/update")
     public Result<Admin> update(@RequestBody Admin admin){
         return this.adminService.update(admin);
+    }
+
+    /**
+     * 登录管理员
+     * @param
+     * @return
+     */
+    @GetMapping
+    @RequestMapping("/login")
+    public Result<Admin>  login(String adminName , String password , HttpServletRequest request){
+        return adminService.login(adminName ,password);
     }
 }
 /**

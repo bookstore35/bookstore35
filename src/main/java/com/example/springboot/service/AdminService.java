@@ -28,4 +28,6 @@ public interface AdminService {
     Result<Admin> getById(Integer id);
 
     Result<Admin> update(Admin admin);
+
+    public Result login(String adminName,String password );
 }

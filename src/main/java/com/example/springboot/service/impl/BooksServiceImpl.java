@@ -1,8 +1,11 @@
 package com.example.springboot.service.impl;
 
 import com.example.springboot.Vo.BooksVo;
+import com.example.springboot.dao.BooksClassDao;
 import com.example.springboot.entity.BooksClass;
+import com.example.springboot.service.BookService;
 import com.example.springboot.service.BooksClassService;
+import com.example.springboot.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -11,12 +14,17 @@ import org.springframework.stereotype.Service;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class BooksServiceImpl implements BooksClassService {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+    @Autowired
+    private BooksClassDao booksClassDao;
+
 
     /**
      * jpa对象
@@ -91,4 +99,37 @@ public class BooksServiceImpl implements BooksClassService {
          */
         return jdbcTemplate.query(sql2.toString(),rowMapper);
     }
+
+    @Override
+    public List<BooksClass> findAll() {
+        return booksClassDao.findAll();
+    }
+
+    @Override
+    public Result insert(BooksClass booksClass) {
+        BooksClass old = this.booksClassDao.findByName(booksClass.getName());
+        if(old != null){
+            return Result.error("该分类已存在");
+        }
+
+        booksClass = this.booksClassDao.save(booksClass);
+        return Result.success(booksClass);
+    }
+
+    @Override
+    public Result delete(Integer id) {
+        this.booksClassDao.deleteById(id);
+        return Result.success("删除成功！");
+    }
+
+    @Override
+    public Result update(BooksClass booksClass) {
+
+        this.booksClassDao.save(booksClass);
+        return Result.success("修改成功!");
+    }
+
+
+
+
 }

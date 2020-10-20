@@ -2,6 +2,7 @@ package com.example.springboot.entity;
 
 import javax.persistence.*;
 
+
 @Entity
 @Table(name = "books_Class")
 public class BooksClass {
@@ -17,6 +18,7 @@ public class BooksClass {
 
     @Column
     private Integer level;  //层次
+
 
     @Override
     public String toString() {
@@ -59,4 +61,5 @@ public class BooksClass {
     public void setLevel(Integer level) {
         this.level = level;
     }
+
 }

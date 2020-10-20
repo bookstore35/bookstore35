@@ -6,9 +6,8 @@ import com.example.springboot.entity.BooksClass;
 import com.example.springboot.service.BooksClassService;
 import com.example.springboot.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 书本分类查询接口
@@ -40,6 +39,48 @@ public class BooksClassController {
 
         return Result.success(booksClassService.selectBooksVo());
     }
+
+    /**
+     *查询所有分类
+     * @return
+     */
+    @GetMapping("/findAllByLevel")
+    public Result<BooksClass> findAll(){
+        return Result.success(booksClassService.findAll());
+    }
+
+    /**
+     * 添加分类
+     * @param booksClass
+     * @return
+     */
+    @PostMapping("/insert")
+    public Result<BooksClass> insert(@RequestBody BooksClass booksClass) {
+        return booksClassService.insert(booksClass);
+    }
+
+    /**
+     * 修改类别
+     * @param booksClass
+     * @return
+     */
+    @PostMapping
+    @RequestMapping("/update")
+    public Result<BooksClass> update(@RequestBody BooksClass booksClass){
+        return booksClassService.update(booksClass);
+    }
+
+    /**
+     * 删除商家
+     * @param id
+     * @return
+     */
+    @DeleteMapping
+    @RequestMapping("/delete")
+    public Result<BooksClass> deleteById(Integer id){
+        return booksClassService.delete(id);
+    }
+
 
 
 }

@@ -5,6 +5,8 @@ import com.example.springboot.entity.Book;
 import com.example.springboot.service.BookService;
 import com.example.springboot.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -62,5 +64,15 @@ public class BookServiceImpl implements BookService {
         return Result.success("删除成功！");
     }
 
-
+    /**
+     * 设置分页查询所有信息
+     * @param page
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public Page<Book> findAll(int page, int pageSize) {
+        PageRequest pageable= PageRequest.of(page,pageSize);
+        return bookDao.findAll(pageable);
+    }
 }

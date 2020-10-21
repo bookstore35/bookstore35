@@ -27,9 +27,17 @@ public class BooksClassController {
 
         return Result.success(booksClassService.selectBooksClass(id));
     }
+    /**
+     * 书本分类 树形查询
+     * @return
+     */
+    @GetMapping("selectAllWithBooksClass")
+    public Result<BooksClass> selectAllWithTree() {
+        return Result.success(booksClassService.listWithTree());
+    }
 
     /**
-     * 多表查询
+     * 书本信息+分类+店铺名的多表查询
      * @return
      */
     @GetMapping("/booksVo")
@@ -58,7 +66,7 @@ public class BooksClassController {
     }
 
     /**
-     * 修改类别
+     * 修改分类
      * @param booksClass
      * @return
      */
@@ -68,7 +76,7 @@ public class BooksClassController {
     }
 
     /**
-     * 删除商家
+     * 删除书本分类
      * @param id
      * @return
      */
@@ -78,13 +86,6 @@ public class BooksClassController {
     }
 
 
-    /**
-     * 书本分类 树形查询
-     * @return
-     */
-    @GetMapping("selectAllWithBooksClass")
-    public Result<BooksClass> selectAllWithTree() {
-        return Result.success(booksClassService.listWithTree());
-    }
+
 
 }

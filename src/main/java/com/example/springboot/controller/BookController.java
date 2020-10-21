@@ -102,7 +102,7 @@ public class BookController {
      * @return
      */
     @GetMapping("/pageFindAll")
-    public Result PageFindAll(Integer page,Integer limit, HttpServletRequest request, HttpServletResponse response){
+    public Result<Page<Book>> PageFindAll(Integer page,Integer limit, HttpServletResponse response){
         response.setHeader("Access-Control-Allow-Origin","*");//解决跨域请求
 
         /*if(page==null || page<=0){

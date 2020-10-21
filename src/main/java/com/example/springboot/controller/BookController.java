@@ -47,8 +47,7 @@ public class BookController {
      * @param id
      * @return
      */
-    @GetMapping
-    @RequestMapping("/getById")
+    @GetMapping("/getById")
     public Result<Book> getById(Integer id){
         return bookService.getById(id);
     }
@@ -58,8 +57,7 @@ public class BookController {
      * @param bookName
      * @return
      */
-    @GetMapping
-    @RequestMapping("/getByBookName")
+    @GetMapping("/getByBookName")
     public Result<Book> getByBookName(String bookName){
         return bookService.getByBookName(bookName);
     }
@@ -70,8 +68,7 @@ public class BookController {
      * @param book
      * @return
      */
-    @PostMapping
-    @RequestMapping("/insert")
+    @PostMapping("/insert")
     public Result<Book> insert(@RequestBody Book book) {
         return this.bookService.insert(book);
     }
@@ -81,8 +78,7 @@ public class BookController {
      * @param book
      * @return
      */
-    @PostMapping
-    @RequestMapping("/update")
+    @PostMapping("/update")
     public Result<Book> update(@RequestBody Book book){
         return this.bookService.update(book);
     }
@@ -92,8 +88,7 @@ public class BookController {
      * @param id
      * @return
      */
-    @DeleteMapping
-    @RequestMapping("/delete")
+    @DeleteMapping("/delete")
     public Result<Book> deleteById(Integer id){
         return this.bookService.delete(id);
     }

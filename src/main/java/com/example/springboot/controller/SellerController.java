@@ -31,8 +31,7 @@ public class SellerController {
      * @param seller
      * @return
      */
-    @PostMapping
-    @RequestMapping("/insert")
+    @PostMapping("/insert")
     public Result<Seller> insert(@RequestBody Seller seller) {
         return sellerService.insert(seller);
     }
@@ -42,8 +41,7 @@ public class SellerController {
      * @param seller
      * @return
      */
-    @PostMapping
-    @RequestMapping("/update")
+    @PostMapping("/update")
     public Result<Seller> update(@RequestBody Seller seller){
         return sellerService.update(seller);
     }
@@ -53,19 +51,19 @@ public class SellerController {
      * @param id
      * @return
      */
-    @DeleteMapping
-    @RequestMapping("/delete")
+    @DeleteMapping("/delete")
     public Result<Seller> deleteById(Integer id){
         return sellerService.delete(id);
     }
 
     /**
-     * 登录商家
-     * @param
+     * 商家登录
+     * @param username  账号
+     * @param password  密码
+     * @param request
      * @return
      */
-    @GetMapping
-    @RequestMapping("/login")
+    @GetMapping("/login")
     public Result<Seller>  login(String username , String password , HttpServletRequest request){
         return sellerService.login(username ,password);
     }

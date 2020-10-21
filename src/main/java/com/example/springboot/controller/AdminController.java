@@ -34,8 +34,7 @@ public class AdminController {
      * @param id
      * @return
      */
-    @GetMapping
-    @RequestMapping("/getById")
+    @GetMapping("/getById")
     public Result<Admin> getById(Integer id){
         return adminService.getById(id);
     }
@@ -45,8 +44,7 @@ public class AdminController {
      * @param admin
      * @return
      */
-    @PostMapping
-    @RequestMapping("/insert")
+    @PostMapping("/insert")
     public Result<Admin> insert(@RequestBody Admin admin) {
         return this.adminService.insert(admin);
     }
@@ -56,8 +54,7 @@ public class AdminController {
      * @param id
      * @return
      */
-    @DeleteMapping
-    @RequestMapping("/delete")
+    @DeleteMapping("/delete")
     public Result<Admin> deleteById(Integer id){
         return this.adminService.delete(id);
     }
@@ -67,27 +64,20 @@ public class AdminController {
      * @param admin
      * @return
      */
-    @PostMapping
-    @RequestMapping("/update")
+    @PostMapping("/update")
     public Result<Admin> update(@RequestBody Admin admin){
         return this.adminService.update(admin);
     }
 
     /**
-     * 登录管理员
-     * @param
+     * 管理员登录
+     * @param adminName 账号
+     * @param password  密码
+     * @param request
      * @return
      */
-    @GetMapping
-    @RequestMapping("/login")
+    @GetMapping("/login")
     public Result<Admin>  login(String adminName , String password , HttpServletRequest request){
         return adminService.login(adminName ,password);
     }
 }
-/**
- * @ClassName : AdminController
- * @Description : TODO
- * @author : zpx
- * @date : 2020/10/14 15:11
- * @version : 1.0
- **/

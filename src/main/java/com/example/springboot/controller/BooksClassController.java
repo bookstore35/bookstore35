@@ -22,8 +22,7 @@ public class BooksClassController {
      * @param id
      * @return
      */
-    @GetMapping
-    @RequestMapping("/booksClass")
+    @GetMapping("/booksClass")
     public Result<BooksClass> selectBooksClass(Integer id){
 
         return Result.success(booksClassService.selectBooksClass(id));
@@ -33,8 +32,7 @@ public class BooksClassController {
      * 多表查询
      * @return
      */
-    @GetMapping
-    @RequestMapping("/booksVo")
+    @GetMapping("/booksVo")
     public Result<BooksVo> selectBooksVo(){
 
         return Result.success(booksClassService.selectBooksVo());
@@ -64,8 +62,7 @@ public class BooksClassController {
      * @param booksClass
      * @return
      */
-    @PostMapping
-    @RequestMapping("/update")
+    @PostMapping("/update")
     public Result<BooksClass> update(@RequestBody BooksClass booksClass){
         return booksClassService.update(booksClass);
     }
@@ -75,8 +72,7 @@ public class BooksClassController {
      * @param id
      * @return
      */
-    @DeleteMapping
-    @RequestMapping("/delete")
+    @DeleteMapping("/delete")
     public Result<BooksClass> deleteById(Integer id){
         return booksClassService.delete(id);
     }

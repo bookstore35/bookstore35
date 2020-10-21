@@ -82,5 +82,13 @@ public class BooksClassController {
     }
 
 
+    /**
+     * 书本分类 树形查询
+     * @return
+     */
+    @GetMapping("selectAllWithBooksClass")
+    public Result<BooksClass> selectAllWithTree() {
+        return Result.success(booksClassService.listWithTree());
+    }
 
 }

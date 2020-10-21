@@ -13,5 +13,6 @@ public interface BooksClassService {
     public Result insert(BooksClass booksClass);
     public Result delete(Integer id);
     public Result update(BooksClass booksClass);
+    List<BooksClass> listWithTree();
 
 }

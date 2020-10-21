@@ -130,6 +130,38 @@ public class BooksServiceImpl implements BooksClassService {
     }
 
 
+    @Override
+    public List<BooksClass> listWithTree() {
+        // 查找所有菜单数据
+        List<BooksClass> lists = booksClassDao.findAll();
+        // 把数据组合成树形结构
+        List<BooksClass> result = lists.stream()
+                // 查找第一级菜单
+                .filter(menu -> menu.getLevel() == 1)
+                // 查找子菜单并放到第一级菜单中
+                .map(menu -> {
+                    menu.setChildren(getChildren(menu, lists));
+                    return menu;
+                })
+                // 把处理结果收集成一个 List 集合
+                .collect(Collectors.toList());
+        return result;
+    }
+
+    private List<BooksClass> getChildren(BooksClass root, List<BooksClass> all) {
+
+        List<BooksClass> children = all.stream()
+                // 根据 父菜单 ID 查找当前菜单 ID，以便于找到 当前菜单的子菜单
+                .filter(menu -> menu.getPid() == root.getId())
+                // 递归查找子菜单的子菜单
+                .map((menu) -> {
+                    menu.setChildren(getChildren(menu, all));
+                    return menu;
+                })
+                // 把处理结果收集成一个 List 集合
+                .collect(Collectors.toList());
+        return children;
+    }
 
 
 }

@@ -1,6 +1,9 @@
 package com.example.springboot.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+
 import javax.persistence.*;
+import java.util.List;
 
 
 @Entity
@@ -19,6 +22,10 @@ public class BooksClass {
     @Column
     private Integer level;  //层次
 
+    @Embedded
+    @TableField(exist = false)
+    private List<BooksClass> children; //子集
+
 
     @Override
     public String toString() {
@@ -27,6 +34,7 @@ public class BooksClass {
                 ", name='" + name + '\'' +
                 ", pid=" + pid +
                 ", level=" + level +
+                ", children=" + children +
                 '}';
     }
 
@@ -62,4 +70,12 @@ public class BooksClass {
         this.level = level;
     }
 
+
+    public List<BooksClass> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<BooksClass> children) {
+        this.children = children;
+    }
 }

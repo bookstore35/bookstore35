@@ -15,12 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -40,6 +38,9 @@ public class CodeController {
     private static int captchaExpires = 3*60; //超时时间3min
     private static int captchaW = 110;  //宽度
     private static int captchaH = 40;   //高度
+
+
+
     @RequestMapping(value = "getcaptcha", method = RequestMethod.GET, produces = MediaType.IMAGE_PNG_VALUE)
     public @ResponseBody
     byte[] getCaptcha(HttpServletResponse response, HttpSession session) throws IOException {

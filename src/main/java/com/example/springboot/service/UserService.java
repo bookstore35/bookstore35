@@ -2,6 +2,9 @@ package com.example.springboot.service;
 
 import com.example.springboot.entity.User;
 import com.example.springboot.utils.Result;
+import org.springframework.data.domain.Page;
+
+import java.util.List;
 
 public interface UserService {
     /**
@@ -9,9 +12,14 @@ public interface UserService {
      * @param user
      * @return
      */
+    List<User> findAll();
     public Result regist(User user);
-
     public Result getById(Integer id);
+    public Result update(User user);
+    public Result delete(Integer id);
+    Page<User> findBookNoCriteria(Integer page, Integer size);
+    Page<User> findBookCriteria(Integer page,Integer size,User user);
+
 
 
     //手机号、密码登录接口

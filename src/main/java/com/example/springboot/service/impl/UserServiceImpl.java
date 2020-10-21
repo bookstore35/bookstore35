@@ -7,11 +7,11 @@ import com.example.springboot.service.RedisService;
 import com.example.springboot.service.UserService;
 import com.example.springboot.utils.CODE;
 import com.example.springboot.utils.Result;
-import org.aspectj.apache.bcel.classfile.Code;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
+import java.util.List;
 import java.util.Random;
 
 @Service
@@ -23,6 +23,11 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
     @Autowired
     private RedisService redisService;
+
+    @Override
+    public List<User> findAll() {
+        return userDao.findAll();
+    }
 
     @Override
     public Result regist(User user) {
@@ -46,6 +51,29 @@ public class UserServiceImpl implements UserService {
         return Result.success(user);
     }
 
+    @Override
+    public Result update(User user) {
+        user = this.userDao.save(user);
+        return Result.success("修改成功");
+
+    }
+
+    @Override
+    public Result delete(Integer id) {
+
+        this.userDao.deleteById(id);
+        return Result.success("删除成功");
+    }
+
+    @Override
+    public Page<User> findBookNoCriteria(Integer page, Integer size) {
+        return null;
+    }
+
+    @Override
+    public Page<User> findBookCriteria(Integer page, Integer size, User user) {
+        return null;
+    }
 
 
     @Override

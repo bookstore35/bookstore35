@@ -1,16 +1,18 @@
 package com.example.springboot.controller;
 
 import com.example.springboot.aop.UserLoginToken;
-import com.example.springboot.entity.BooksClass;
+
 import com.example.springboot.entity.User;
 import com.example.springboot.service.UserService;
-import com.example.springboot.service.impl.UserServiceImpl;
+
 import com.example.springboot.utils.CodeUtil;
 import com.example.springboot.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 @RequestMapping("/user")
@@ -21,6 +23,10 @@ public class UserController {
     private UserService userService;
 
 
+    @GetMapping("/findAll")
+    public Result<User> findAll(){
+        return Result.success(userService.findAll());
+    }
     /**
      * 注册接口
      * @param user
@@ -39,7 +45,25 @@ public class UserController {
         }
         return this.userService. regist(user);
     }
+    /*修改用户信息
+    * */
+    @PostMapping
+    @RequestMapping("/update")
+    public Result<User> update(@RequestBody User user ){
 
+        return this.userService.update(user);
+}
+
+    /*删除接口
+    * */
+    @DeleteMapping
+    @RequestMapping("/delete/{id}")
+    public Result<User> delete(@PathVariable("id") Integer id ){
+        return this.userService.delete(id);
+    }
+
+    /*根据id查询用户
+    * */
     @UserLoginToken
     @GetMapping
     @RequestMapping("/getById")
@@ -84,6 +108,9 @@ public class UserController {
         return userService.sendMessage(tel,type);
     }
 
+    /*
+    *
+    * */
 
 
 }

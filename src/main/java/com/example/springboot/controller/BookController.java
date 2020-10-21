@@ -2,7 +2,6 @@ package com.example.springboot.controller;
 
 import com.example.springboot.entity.Book;
 import com.example.springboot.service.BookService;
-import com.example.springboot.utils.LayData;
 import com.example.springboot.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -108,24 +107,19 @@ public class BookController {
      * @return
      */
     @GetMapping("/pageFindAll")
-    public LayData<Book> PageFindAll(Integer page, HttpServletRequest request, Integer limit, HttpServletResponse response){
+    public Result PageFindAll(Integer page,Integer limit, HttpServletRequest request, HttpServletResponse response){
         response.setHeader("Access-Control-Allow-Origin","*");//解决跨域请求
 
-        if(page==null || page<=0){
+        /*if(page==null || page<=0){
             page = 0;
         }else{
             page -= 1;
         }
         if(limit==null||limit<=5){
             limit=5;
-        }
+        }*/
         Page<Book> pageData=bookService.findAll(page,limit);
-        request.setAttribute("stu", pageData);
-        LayData<Book> layData=new LayData<Book>();
-        //保持与layui中的数据表格所需求的json格式保持一致
-        layData.setCode(0);
-        layData.setCount(pageData.getTotalElements());
-        layData.setData(pageData.getContent());
-        return layData;
+//        request.setAttribute("stu", pageData);
+        return Result.success(pageData);
     }
 }

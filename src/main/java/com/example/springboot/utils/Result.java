@@ -3,7 +3,7 @@ package com.example.springboot.utils;
 public class Result<T> {
 
     private int code;//0代表成功，1代表失败，403代表未登陆
-    private T data;//接口返回数据
+    private Object data;//接口返回数据
     private String msg;//提示信息
 
     public Result(int code, T data, String msg) {

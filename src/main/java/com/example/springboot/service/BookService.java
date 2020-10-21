@@ -15,5 +15,5 @@ public interface BookService {
     public Result insert(Book book);
     public Result delete(Integer id);
     public Result update(Book book);
-    Page<Book> findAll(int page, int pageSize);//分页查询
+    Page<Book> findAll(Integer page, Integer pageSize);//分页查询
 }

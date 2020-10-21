@@ -7,6 +7,7 @@ import com.example.springboot.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -71,8 +72,10 @@ public class BookServiceImpl implements BookService {
      * @return
      */
     @Override
-    public Page<Book> findAll(int page, int pageSize) {
-        PageRequest pageable= PageRequest.of(page,pageSize);
-        return bookDao.findAll(pageable);
+    public Page<Book> findAll(Integer page, Integer pageSize) {
+        Pageable pageable= PageRequest.of(page,pageSize);
+        Page<Book> pa=bookDao.findAll(pageable);
+
+        return pa;
     }
 }

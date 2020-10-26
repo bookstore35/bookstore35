@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
  * 书本分类查询接口
  */
 @RestController
+@RequestMapping("/booksClass")
 public class BooksClassController {
     @Autowired
     private BooksClassService booksClassService;

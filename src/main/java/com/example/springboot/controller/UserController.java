@@ -2,13 +2,18 @@ package com.example.springboot.controller;
 
 import com.example.springboot.aop.UserLoginToken;
 
+import com.example.springboot.dao.UserDao;
 import com.example.springboot.entity.User;
 import com.example.springboot.service.UserService;
 
 import com.example.springboot.utils.CodeUtil;
+import com.example.springboot.utils.PageUtils;
 import com.example.springboot.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +22,7 @@ import java.util.List;
 /**
  * 用户管理
  *
- * @author yife
+ * @author yifeng
  * @return
  */
 @RestController
@@ -120,6 +125,19 @@ public class UserController {
 
         //type_tel :key
         return userService.sendMessage(tel,type);
+    }
+
+    /**
+     * 分页查询接口qqqq
+     * @param pageNo  第几页
+     * @param pageSize 多少记录
+     * @return
+     */
+    @GetMapping("/page")
+    private Result<PageUtils<User>> page(@RequestParam("pageNo")Integer pageNo, @RequestParam("pageSize")Integer pageSize){
+        Pageable pageable = PageRequest.of(pageNo,pageSize);
+          //pageNo从第几页开始查，pageSize页面条数
+        return  Result.success(userService.findAll(pageable));
     }
 
 

@@ -6,9 +6,11 @@ import com.example.springboot.entity.User;
 import com.example.springboot.service.RedisService;
 import com.example.springboot.service.UserService;
 import com.example.springboot.utils.CODE;
+import com.example.springboot.utils.PageUtils;
 import com.example.springboot.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -73,6 +75,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public Page<User> findBookCriteria(Integer page, Integer size, User user) {
         return null;
+    }
+
+    @Override
+    public PageUtils findAll(Pageable pageable) {
+        Page<User> page =userDao.findAll(pageable);
+        PageUtils result = new PageUtils(page.getNumber(),page.getSize(),page.getTotalElements(),page.getTotalPages(),page.getContent());
+        return result;
     }
 
 

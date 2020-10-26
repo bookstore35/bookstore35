@@ -36,6 +36,9 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
                              Object handler) throws SignatureException, IOException {
 
         request.getRequestURI();
+        if(!(handler instanceof HandlerMethod)){
+            return true;
+        }
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         Method method = handlerMethod.getMethod();
         /** 检查是否有passtoken注释，有则跳过认证 */

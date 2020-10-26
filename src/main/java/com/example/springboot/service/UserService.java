@@ -1,8 +1,10 @@
 package com.example.springboot.service;
 
 import com.example.springboot.entity.User;
+import com.example.springboot.utils.PageUtils;
 import com.example.springboot.utils.Result;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -19,6 +21,8 @@ public interface UserService {
     public Result delete(Integer id);
     Page<User> findBookNoCriteria(Integer page, Integer size);
     Page<User> findBookCriteria(Integer page,Integer size,User user);
+    //用户查询
+    PageUtils findAll(Pageable pageable);
 
 
 

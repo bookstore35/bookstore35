@@ -27,6 +27,19 @@ public class SellerController {
     }
 
     /**
+     * @author 自定义
+     * @Description TODO
+     * @date 18:41 2020/10/28
+     * 根据id查询商家
+     * @param id
+     * @return
+     **/
+    @GetMapping("/getById")
+    public Result<Seller>getById(Integer id){
+        return Result.success((sellerService.getById(id)));
+    }
+
+    /**
      * 添加商家
      * @param seller
      * @return

@@ -20,6 +20,12 @@ public class SellerServiceImpl implements SellerService {
     }
 
     @Override
+    public Result getById(Integer id) {
+        Seller seller=sellerDao.findById(id).get();//根据id查询商家
+        return Result.success(seller);
+    }
+
+    @Override
     public Result insert(Seller seller) {
         Seller old = this.sellerDao.findBySellerName(seller.getSellerName());
         if(old != null){

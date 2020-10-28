@@ -64,12 +64,12 @@ public class BooksServiceImpl implements BooksClassService {
     }
 
     @Override
-    public List<BooksVo> selectBooksVo() {
+    public List<BooksVo> selectBooksVo(Integer number,Integer content) {
          /*
            查询方法
         */
          StringBuffer sql2=new StringBuffer();
-         sql2.append("select a.id,a.book_name ,a.publisher,a.author,a.introduce,a.images_url,b.name,c.seller_name  from book a left join books_class b on a.cid=b.id inner join seller c on a.sid=c.sid");
+         sql2.append("select a.id,a.book_name ,a.publisher,a.author,a.introduce,a.images_url,b.name,c.seller_name  from book a left join books_class b on a.cid=b.id inner join seller c on a.sid=c.sid limit ?,?");
 
          RowMapper<BooksVo> rowMapper = new RowMapper<BooksVo>() {
             /*
@@ -97,7 +97,7 @@ public class BooksServiceImpl implements BooksClassService {
         /*
             返回执行数据库操作
          */
-        return jdbcTemplate.query(sql2.toString(),rowMapper);
+        return jdbcTemplate.query(sql2.toString(),rowMapper,(number-1)*content,content);
     }
 
     @Override

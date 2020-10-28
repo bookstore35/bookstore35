@@ -38,13 +38,13 @@ public class BooksClassController {
     }
 
     /**
-     * 书本信息+分类+店铺名的多表查询
+     * 书本信息+分类+店铺名的多表分页查询
      * @return
      */
     @GetMapping("/booksVo")
-    public Result<BooksVo> selectBooksVo(){
+    public Result<BooksVo> selectBooksVo(Integer number,Integer content){
 
-        return Result.success(booksClassService.selectBooksVo());
+        return Result.success(booksClassService.selectBooksVo(number,content));
     }
 
     /**

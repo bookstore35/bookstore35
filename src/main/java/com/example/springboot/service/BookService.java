@@ -1,6 +1,8 @@
 package com.example.springboot.service;
 
 
+
+import com.example.springboot.Vo.ImagesVo;
 import com.example.springboot.entity.Book;
 import com.example.springboot.utils.Result;
 import org.springframework.data.domain.Page;
@@ -12,7 +14,7 @@ public interface BookService {
     List<Book> findByBookNameLike(String bookName);
     public Result getById(Integer id);
     public Result getByBookName(String bookName);
-    public Result insert(Book book);
+    public Result insert(ImagesVo vo);
     public Result delete(Integer id);
     public Result update(Book book);
     Page<Book> findAll(Integer page, Integer pageSize);//分页查询

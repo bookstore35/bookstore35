@@ -1,6 +1,5 @@
 package com.example.springboot.Vo;
 
-
 public class BooksVo {
     private Integer id;
     private String bookName;    //书名
@@ -10,6 +9,8 @@ public class BooksVo {
     private String imagesUrl;   //书本封面（图片）
     private String name;    //分类名称
     private String sellerName; //店铺名称
+
+
 
     @Override
     public String toString() {
@@ -88,4 +89,5 @@ public class BooksVo {
     public void setSellerName(String sellerName) {
         this.sellerName = sellerName;
     }
+
 }

@@ -1,5 +1,6 @@
 package com.example.springboot.controller;
 
+import com.example.springboot.Vo.ImagesVo;
 import com.example.springboot.entity.Book;
 import com.example.springboot.service.BookService;
 import com.example.springboot.utils.Result;
@@ -65,12 +66,12 @@ public class BookController {
 
     /**
      * 添加书本信息
-     * @param book
+     * @param
      * @return
      */
     @PostMapping("/insert")
-    public Result<Book> insert(@RequestBody Book book) {
-        return this.bookService.insert(book);
+    public Result<Book> insert(@RequestBody ImagesVo imagesVo) {
+        return this.bookService.insert(imagesVo);
     }
 
     /**

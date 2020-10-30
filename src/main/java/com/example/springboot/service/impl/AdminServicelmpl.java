@@ -53,7 +53,8 @@ public class AdminServicelmpl implements AdminService {
 
     @Override
     public Result<Admin> update(Admin admin) {
-        return null;
+        this.adminDao.save(admin);
+        return Result.success("修改成功!");
     }
 
     @Override

@@ -14,6 +14,6 @@ public interface BooksClassService {
     public Result delete(Integer id);
     public Result update(BooksClass booksClass);
     List<BooksClass> listWithTree();
-    List<BooksVo> selectBooks(Integer id);
+    List<BooksVo> selectBooks(Integer id,Integer number,Integer content);
 
 }

@@ -39,17 +39,22 @@ public class BooksClassController {
     }
 
     /**
-     * 根据父级ID查出所有所属的子类id（没用到）
+     * 根据父级ID查出所有所属的书本信息+分页
      * @param id
+     * @param number
+     * @param content
      * @return
      */
     @GetMapping("selectBooks")
-    public Result<BooksClass> selectBooks(Integer id){
-        return Result.success(booksClassService.selectBooks(id));
+    public Result<BooksClass> selectBooks(Integer id,Integer number,Integer content){
+        return Result.success(booksClassService.selectBooks(id,number,content));
     }
 
     /**
      * 书本信息+分类+店铺名的多表分页查询
+     * @param pid
+     * @param number
+     * @param content
      * @return
      */
     @GetMapping("/booksVo")
@@ -59,7 +64,7 @@ public class BooksClassController {
     }
 
     /**
-     *查询所有分类
+     * 查询所有分类
      * @return
      */
     @GetMapping("/findAllByLevel")

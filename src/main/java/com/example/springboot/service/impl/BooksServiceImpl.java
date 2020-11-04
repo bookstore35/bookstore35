@@ -177,15 +177,15 @@ public class BooksServiceImpl implements BooksClassService {
 
     //根据父级查出所有所属的子类id
     @Override
-    public List<BooksVo> selectBooks(Integer id) {
+    public List<BooksVo> selectBooks(Integer id,Integer number,Integer content) {
         StringBuffer sql3=new StringBuffer();
-//        sql3.append("SELECT id FROM (SELECT t1.id,IF (find_in_set(pid, @pids) > 0,@pids := concat(@pids, ',', id),0) AS ischild FROM(SELECT id,pid FROM books_class t ORDER BY pid,id) t1,(SELECT @pids := ? ) t2) t3 WHERE ischild != 0");
         sql3.append("SELECT t.id,t.book_name ,t.publisher,t.author,t.introduce,t.images_url  \n");
         sql3.append(",(select t3.seller_name from seller t3 where t3.sid=t.sid) seller_name,t3.name from book t\n");
         sql3.append("LEFT JOIN books_class t3 on t3.id=t.cid \n");
         sql3.append("where t.cid in(SELECT id FROM(SELECT t1.id,IF (find_in_set(pid, @pids) > 0 ,@pids := concat(@pids, ',', id),0) \n");
-        sql3.append("AS ischild FROM(SELECT id,pid FROM books_class t ORDER BY pid,id) t1,(SELECT @pids := ?) t2) t3 WHERE ischild != 0)or t.cid = ? \n");
-//        sql3.append("limit ?,?\n");
+        sql3.append("AS ischild FROM(SELECT id,pid FROM books_class t ORDER BY pid,id) t1,(SELECT @pids := ?) t2) t3 \n");
+        sql3.append("WHERE ischild != 0)or t.cid = ? \n");
+        sql3.append("limit ?,?\n");
         RowMapper<BooksVo> rowMapper = new RowMapper<BooksVo>() {
             /*
                 将数据库的查询数据传入到booksClass
@@ -213,7 +213,7 @@ public class BooksServiceImpl implements BooksClassService {
         /*
             返回执行数据库操作
          */
-        return jdbcTemplate.query(sql3.toString(),rowMapper,id,id);
+        return jdbcTemplate.query(sql3.toString(),rowMapper,id,id,(number-1)*content,content);
 
     }
 }

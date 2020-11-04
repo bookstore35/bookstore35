@@ -66,11 +66,11 @@ public class BookController {
 
     /**
      * 添加书本信息
-     * @param
+     * @param imagesVo
      * @return
      */
     @PostMapping("/insert")
-    public Result<Book> insert(@RequestBody ImagesVo imagesVo) {
+    public Result<ImagesVo> insert(@RequestBody ImagesVo imagesVo) {
         return this.bookService.insert(imagesVo);
     }
 

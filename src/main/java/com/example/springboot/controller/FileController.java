@@ -16,6 +16,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.UUID;
 
+/**
+ * 上传接口
+ */
 @RestController
 @RequestMapping("/file")
 public class FileController {

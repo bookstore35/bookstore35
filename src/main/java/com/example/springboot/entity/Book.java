@@ -3,7 +3,8 @@ package com.example.springboot.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "book")
+@Table(name = "book",
+        indexes = {@Index(name = "idx_book_book_name",columnList = "bookName")})
 public class Book {
 
     @Id

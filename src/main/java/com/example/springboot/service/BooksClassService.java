@@ -8,11 +8,12 @@ import java.util.List;
 
 public interface BooksClassService {
     public List<BooksClass> selectBooksClass(Integer id);
-    List<BooksVo> selectBooksVo(Integer number,Integer content);
+    List<BooksVo> selectBooksVo(Integer pid,Integer number,Integer content);
     List<BooksClass> findAll();
     public Result insert(BooksClass booksClass);
     public Result delete(Integer id);
     public Result update(BooksClass booksClass);
     List<BooksClass> listWithTree();
+    List<BooksVo> selectBooks(Integer id);
 
 }

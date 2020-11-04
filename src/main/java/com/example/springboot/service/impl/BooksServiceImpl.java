@@ -63,13 +63,20 @@ public class BooksServiceImpl implements BooksClassService {
         return jdbcTemplate.query(sql,rowMapper,id); //sql、rowMapper固定，id是传给sql？的参数
     }
 
+
+
     @Override
-    public List<BooksVo> selectBooksVo(Integer number,Integer content) {
+    public List<BooksVo> selectBooksVo(Integer pid,Integer number,Integer content) {
          /*
            查询方法
         */
          StringBuffer sql2=new StringBuffer();
-         sql2.append("select a.id,a.book_name ,a.publisher,a.author,a.introduce,a.images_url,b.name,c.seller_name  from book a left join books_class b on a.cid=b.id inner join seller c on a.sid=c.sid limit ?,?");
+         sql2.append("select a.id,a.book_name ,a.publisher,a.author,a.introduce,a.images_url,b.name,c.seller_name  \n");
+         sql2.append("from book a \n");
+         sql2.append("left join books_class b on a.cid=b.id\n");
+         sql2.append("inner join seller c on a.sid=c.sid \n");
+         sql2.append("where a.cid=?\n ");
+         sql2.append("limit ?,?");
 
          RowMapper<BooksVo> rowMapper = new RowMapper<BooksVo>() {
             /*
@@ -97,7 +104,7 @@ public class BooksServiceImpl implements BooksClassService {
         /*
             返回执行数据库操作
          */
-        return jdbcTemplate.query(sql2.toString(),rowMapper,(number-1)*content,content);
+        return jdbcTemplate.query(sql2.toString(),rowMapper,pid,(number-1)*content,content);
     }
 
     @Override
@@ -148,6 +155,7 @@ public class BooksServiceImpl implements BooksClassService {
         return result;
     }
 
+
     private List<BooksClass> getChildren(BooksClass root, List<BooksClass> all) {
 
         List<BooksClass> children = all.stream()
@@ -164,4 +172,48 @@ public class BooksServiceImpl implements BooksClassService {
     }
 
 
+
+
+
+    //根据父级查出所有所属的子类id
+    @Override
+    public List<BooksVo> selectBooks(Integer id) {
+        StringBuffer sql3=new StringBuffer();
+//        sql3.append("SELECT id FROM (SELECT t1.id,IF (find_in_set(pid, @pids) > 0,@pids := concat(@pids, ',', id),0) AS ischild FROM(SELECT id,pid FROM books_class t ORDER BY pid,id) t1,(SELECT @pids := ? ) t2) t3 WHERE ischild != 0");
+        sql3.append("SELECT t.id,t.book_name ,t.publisher,t.author,t.introduce,t.images_url  \n");
+        sql3.append(",(select t3.seller_name from seller t3 where t3.sid=t.sid) seller_name,t3.name from book t\n");
+        sql3.append("LEFT JOIN books_class t3 on t3.id=t.cid \n");
+        sql3.append("where t.cid in(SELECT id FROM(SELECT t1.id,IF (find_in_set(pid, @pids) > 0 ,@pids := concat(@pids, ',', id),0) \n");
+        sql3.append("AS ischild FROM(SELECT id,pid FROM books_class t ORDER BY pid,id) t1,(SELECT @pids := ?) t2) t3 WHERE ischild != 0)or t.cid = ? \n");
+//        sql3.append("limit ?,?\n");
+        RowMapper<BooksVo> rowMapper = new RowMapper<BooksVo>() {
+            /*
+                将数据库的查询数据传入到booksClass
+             */
+            @Override
+            public BooksVo mapRow(ResultSet resultSet, int i) throws SQLException {
+                BooksVo booksVo = new BooksVo();
+                if (resultSet.wasNull()){
+                    return  booksVo;
+                }
+                booksVo.setId(resultSet.getInt(1));
+
+                booksVo.setBookName(resultSet.getString(2));
+                booksVo.setPublisher(resultSet.getString(3));
+                booksVo.setAuthor(resultSet.getString(4));
+                booksVo.setIntroduce(resultSet.getString(5));
+                booksVo.setImagesUrl(resultSet.getString(6));
+                booksVo.setName(resultSet.getString(8));
+                booksVo.setSellerName(resultSet.getString(7));
+                return booksVo;
+
+            }
+        };
+
+        /*
+            返回执行数据库操作
+         */
+        return jdbcTemplate.query(sql3.toString(),rowMapper,id,id);
+
+    }
 }

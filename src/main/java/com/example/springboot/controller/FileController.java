@@ -1,6 +1,7 @@
 package com.example.springboot.controller;
 
 import com.example.springboot.service.FileService;
+import com.example.springboot.utils.Result;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +17,7 @@ import java.io.IOException;
 import java.util.UUID;
 
 @RestController
+@RequestMapping("/file")
 public class FileController {
 
 
@@ -24,17 +26,18 @@ public class FileController {
     private FileService fileService;
 
 
-
-
+    /**
+     * 上传接口
+     * @param file
+     * @param session
+     * @return
+     * @throws Exception
+     */
     @PostMapping("/upload")//上传接口
-        public String upload2(MultipartFile file, @RequestParam("judge") Integer judge, HttpSession session) throws  Exception{
+        public Result<String> upload2(MultipartFile file, HttpSession session) throws  Exception{
             String filePath = fileService.upload(file);
-            if(judge == 0){
-                session.setAttribute("imagesDetails", filePath);
-            }else if(judge == 1){
-                session.setAttribute("imagesThumbnails", filePath);
-            }
-        return  filePath;
+
+        return  Result.success(filePath);
     }
 
 

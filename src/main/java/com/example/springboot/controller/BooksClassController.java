@@ -2,6 +2,7 @@ package com.example.springboot.controller;
 
 
 import com.example.springboot.Vo.BooksVo;
+import com.example.springboot.Vo.ImagesVo;
 import com.example.springboot.entity.BooksClass;
 import com.example.springboot.service.BooksClassService;
 import com.example.springboot.utils.Result;
@@ -38,13 +39,23 @@ public class BooksClassController {
     }
 
     /**
+     * 根据父级ID查出所有所属的子类id（没用到）
+     * @param id
+     * @return
+     */
+    @GetMapping("selectBooks")
+    public Result<BooksClass> selectBooks(Integer id){
+        return Result.success(booksClassService.selectBooks(id));
+    }
+
+    /**
      * 书本信息+分类+店铺名的多表分页查询
      * @return
      */
     @GetMapping("/booksVo")
-    public Result<BooksVo> selectBooksVo(Integer number,Integer content){
+    public Result<BooksClass> selectBooksVo(Integer pid, Integer number, Integer content){
 
-        return Result.success(booksClassService.selectBooksVo(number,content));
+        return Result.success(booksClassService.selectBooksVo(pid,number,content));
     }
 
     /**

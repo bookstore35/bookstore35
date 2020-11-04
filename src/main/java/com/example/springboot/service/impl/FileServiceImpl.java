@@ -35,7 +35,7 @@ public class FileServiceImpl implements FileService {
             IOUtils.copy(file.getInputStream(), fileOutputStream);
             //第一个参数是上传的文件化为文件字节流，即上传的文件.getInputStream()方法，第二个文件是上面储存的文件字节流对象
            /* logger.info("sccg1");//*/
-            return "/upload/"+file.getOriginalFilename();//返回路径加文件名加后缀，getOriginalFilename()会返回文件名后缀，
+            return "/upload/"+newfileName;//返回路径加文件名加后缀，getOriginalFilename()会返回文件名后缀，
         } catch (IOException e){
             /*logger.error("scsb2");*/
             e.printStackTrace(); }

@@ -86,9 +86,36 @@ public class BookServiceImpl implements BookService {
 
 
     @Override
-    public Result update(Book book){
-        book = this.bookDao.save(book);
-        return Result.success("修改成功!");
+    @Transactional
+    public Result update(ImagesVo vo){
+        //1.构建book类并保存
+        Book book = new Book();
+        BeanUtils.copyProperties(vo,book);
+
+        this.bookDao.save(book);
+
+        // 2.给详情图赋值并保存
+        List<Images> imagesDetails = vo.getImagesDetails();
+        if(imagesDetails != null && imagesDetails.size() > 0){
+            for(int i=0;i<imagesDetails.size();i++){
+                Images details= imagesDetails.get(i);
+                details.setBid(book.getId());
+                details.setJudge(1);
+            }
+            this.imagesDao.saveAll(imagesDetails);
+        }
+        // 3.给缩略图赋值并保存
+        List<Images> imagesThumbnails = vo.getImagesThumbnails();
+        if(imagesThumbnails != null && imagesThumbnails.size() > 0){
+            for(int i=0;i<imagesThumbnails.size();i++){
+                Images details= imagesThumbnails.get(i);
+                details.setBid(book.getId());
+                details.setJudge(0);
+            }
+            this.imagesDao.saveAll(imagesThumbnails);
+        }
+
+        return Result.success("修改成功");
     }
 
 

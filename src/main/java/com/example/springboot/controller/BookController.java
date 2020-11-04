@@ -76,12 +76,12 @@ public class BookController {
 
     /**
      * 修改书本信息
-     * @param book
+     * @param imagesVo
      * @return
      */
     @PostMapping("/update")
-    public Result<Book> update(@RequestBody Book book){
-        return this.bookService.update(book);
+    public Result<Book> update(@RequestBody ImagesVo imagesVo){
+        return this.bookService.update(imagesVo);
     }
 
     /**

@@ -16,6 +16,6 @@ public interface BookService {
     public Result getByBookName(String bookName);
     public Result insert(ImagesVo vo);
     public Result delete(Integer id);
-    public Result update(Book book);
+    public Result update(ImagesVo vo);
     Page<Book> findAll(Integer page, Integer pageSize);//分页查询
 }

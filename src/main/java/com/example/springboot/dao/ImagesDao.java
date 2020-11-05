@@ -16,9 +16,9 @@ public interface ImagesDao extends JpaRepository<Images,Integer> {
 
     void deleteByBid(int Bid);
 
-    @Modifying
-    @Transactional
-    @Query(value = "delete book,images from  book left join  images on book.id = images.bid where book.id= ?",nativeQuery = true)
-    void deleteBook(Integer id);
+    List<Images> findByBidAndJudge(Integer Bid, Integer Judge);
+
+
+
 
 }

@@ -1,9 +1,8 @@
 package com.example.springboot.service.impl;
 
-import com.example.springboot.Vo.BooksVo;
+import com.example.springboot.Vo.BooksClassVo;
 import com.example.springboot.dao.BooksClassDao;
 import com.example.springboot.entity.BooksClass;
-import com.example.springboot.service.BookService;
 import com.example.springboot.service.BooksClassService;
 import com.example.springboot.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Service;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -66,7 +64,7 @@ public class BooksServiceImpl implements BooksClassService {
 
 
     @Override
-    public List<BooksVo> selectBooksVo(Integer pid,Integer number,Integer content) {
+    public List<BooksClassVo> selectBooksVo(Integer pid, Integer number, Integer content) {
          /*
            查询方法
         */
@@ -78,13 +76,13 @@ public class BooksServiceImpl implements BooksClassService {
          sql2.append("where a.cid=?\n ");
          sql2.append("limit ?,?");
 
-         RowMapper<BooksVo> rowMapper = new RowMapper<BooksVo>() {
+         RowMapper<BooksClassVo> rowMapper = new RowMapper<BooksClassVo>() {
             /*
                 将数据库的查询数据传入到booksClass
              */
             @Override
-            public BooksVo mapRow(ResultSet resultSet, int i) throws SQLException {
-                BooksVo booksVo = new BooksVo();
+            public BooksClassVo mapRow(ResultSet resultSet, int i) throws SQLException {
+                BooksClassVo booksVo = new BooksClassVo();
                 if (resultSet.wasNull()){
                     return  booksVo;
                 }
@@ -177,7 +175,7 @@ public class BooksServiceImpl implements BooksClassService {
 
     //根据父级查出所有所属的子类id
     @Override
-    public List<BooksVo> selectBooks(Integer id,Integer number,Integer content) {
+    public List<BooksClassVo> selectBooks(Integer id, Integer number, Integer content) {
         StringBuffer sql3=new StringBuffer();
         sql3.append("SELECT t.id,t.book_name ,t.publisher,t.author,t.introduce,t.images_url  \n");
         sql3.append(",(select t3.seller_name from seller t3 where t3.sid=t.sid) seller_name,t3.name from book t\n");
@@ -186,13 +184,13 @@ public class BooksServiceImpl implements BooksClassService {
         sql3.append("AS ischild FROM(SELECT id,pid FROM books_class t ORDER BY pid,id) t1,(SELECT @pids := ?) t2) t3 \n");
         sql3.append("WHERE ischild != 0)or t.cid = ? \n");
         sql3.append("limit ?,?\n");
-        RowMapper<BooksVo> rowMapper = new RowMapper<BooksVo>() {
+        RowMapper<BooksClassVo> rowMapper = new RowMapper<BooksClassVo>() {
             /*
                 将数据库的查询数据传入到booksClass
              */
             @Override
-            public BooksVo mapRow(ResultSet resultSet, int i) throws SQLException {
-                BooksVo booksVo = new BooksVo();
+            public BooksClassVo mapRow(ResultSet resultSet, int i) throws SQLException {
+                BooksClassVo booksVo = new BooksClassVo();
                 if (resultSet.wasNull()){
                     return  booksVo;
                 }

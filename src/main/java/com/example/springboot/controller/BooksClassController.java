@@ -1,13 +1,11 @@
 package com.example.springboot.controller;
 
 
-import com.example.springboot.Vo.BooksVo;
-import com.example.springboot.Vo.ImagesVo;
+import com.example.springboot.Vo.BooksClassVo;
 import com.example.springboot.entity.BooksClass;
 import com.example.springboot.service.BooksClassService;
 import com.example.springboot.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -33,8 +31,8 @@ public class BooksClassController {
      * 书本分类 树形查询
      * @return
      */
-    @GetMapping("selectAllWithBooksClass")
-    public Result<BooksClass> selectAllWithTree() {
+    @GetMapping("/selectAllWithBooksClass")
+    public Result<BooksClassVo> selectAllWithTree() {
         return Result.success(booksClassService.listWithTree());
     }
 
@@ -45,8 +43,8 @@ public class BooksClassController {
      * @param content
      * @return
      */
-    @GetMapping("selectBooks")
-    public Result<BooksClass> selectBooks(Integer id,Integer number,Integer content){
+    @GetMapping("/selectBooks")
+    public Result<BooksClassVo> selectBooks(Integer id,Integer number,Integer content){
         return Result.success(booksClassService.selectBooks(id,number,content));
     }
 

@@ -1,12 +1,13 @@
 package com.example.springboot.service.impl;
 
+import com.example.springboot.Vo.BooksClassVo;
 import com.example.springboot.Vo.BooksVo;
-import com.example.springboot.Vo.ImagesVo;
 import com.example.springboot.dao.BookDao;
 import com.example.springboot.dao.ImagesDao;
 import com.example.springboot.entity.Book;
 import com.example.springboot.entity.Images;
 import com.example.springboot.service.BookService;
+import com.example.springboot.utils.CODE;
 import com.example.springboot.utils.Result;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +15,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 @Service
@@ -44,9 +42,18 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Result getById(Integer id) {
+    public BooksVo getById(Integer id) {
+        BooksVo vo = new BooksVo();
         Book book = bookDao.findById(id).get();//根据id查询用户;
-        return Result.success(book);
+        BeanUtils.copyProperties(book,vo);
+
+        List<Images> imagesDetails = imagesDao.findByBidAndJudge(id, CODE.JUDGE_DETAIL);
+        List<Images> imagesThumbnails = imagesDao.findByBidAndJudge(id, CODE.JUDGE_THUMBNAIL);
+
+        vo.setImagesDetails(imagesDetails);
+        vo.setImagesThumbnails(imagesThumbnails);
+
+        return vo;
     }
 
     @Override
@@ -57,7 +64,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     @Transactional
-    public Result insert(ImagesVo vo) {
+    public Result insert(BooksVo vo) {
         //1.构建book类并保存
         Book book = new Book();
         BeanUtils.copyProperties(vo,book);
@@ -72,7 +79,7 @@ public class BookServiceImpl implements BookService {
             for(int i=0;i<imagesDetails.size();i++){
                 Images details= imagesDetails.get(i);
                 details.setBid(book.getId());
-                details.setJudge(1);
+                details.setJudge(0);
             }
             this.imagesDao.saveAll(imagesDetails);
         }
@@ -82,7 +89,7 @@ public class BookServiceImpl implements BookService {
             for(int i=0;i<imagesThumbnails.size();i++){
                 Images details= imagesThumbnails.get(i);
                 details.setBid(book.getId());
-                details.setJudge(0);
+                details.setJudge(1);
             }
             this.imagesDao.saveAll(imagesThumbnails);
         }
@@ -93,7 +100,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     @Transactional
-    public Result update(ImagesVo vo){
+    public Result update(BooksVo vo){
         imagesDao.deleteByBid(vo.getId());
 
         Book book = new Book();
@@ -106,7 +113,7 @@ public class BookServiceImpl implements BookService {
             for(int i=0;i<imagesDetails.size();i++){
                 Images details= imagesDetails.get(i);
                 details.setBid(book.getId());
-                details.setJudge(1);
+                details.setJudge(0);
             }
             this.imagesDao.saveAll(imagesDetails);
         }
@@ -116,7 +123,7 @@ public class BookServiceImpl implements BookService {
             for(int i=0;i<imagesThumbnails.size();i++){
                 Images details= imagesThumbnails.get(i);
                 details.setBid(book.getId());
-                details.setJudge(0);
+                details.setJudge(1);
             }
             this.imagesDao.saveAll(imagesThumbnails);
         }
@@ -129,7 +136,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public Result delete(Integer id){
 
-        imagesDao.deleteBook(id);
+        bookDao.deleteBook(id);
 //        this.bookDao.deleteById(id);
         return Result.success("删除成功！");
     }
@@ -147,6 +154,7 @@ public class BookServiceImpl implements BookService {
 
         return pa;
     }
+
 
 
 }

@@ -11,6 +11,10 @@ public class CODE {
     public static final int VIRIFY_REGIST = 0;
     // 验证码类型：登录
     public static final int VIRIFY_LOGIN = 1;
+    //详情图
+    public static final int JUDGE_DETAIL = 0;
+    //缩略图
+    public static final int JUDGE_THUMBNAIL = 1;
 
 
 }

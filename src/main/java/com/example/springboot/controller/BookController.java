@@ -1,6 +1,7 @@
 package com.example.springboot.controller;
 
-import com.example.springboot.Vo.ImagesVo;
+import com.example.springboot.Vo.BooksClassVo;
+import com.example.springboot.Vo.BooksVo;
 import com.example.springboot.entity.Book;
 import com.example.springboot.service.BookService;
 import com.example.springboot.utils.Result;
@@ -48,8 +49,9 @@ public class BookController {
      * @return
      */
     @GetMapping("/getById")
-    public Result<Book> getById(Integer id){
-        return bookService.getById(id);
+    public Result<BooksVo> getById(Integer id){
+
+        return Result.success(bookService.getById(id));
     }
 
     /**
@@ -65,22 +67,22 @@ public class BookController {
 
     /**
      * 添加书本信息
-     * @param imagesVo
+     * @param vo
      * @return
      */
     @PostMapping("/insert")
-    public Result<ImagesVo> insert(@RequestBody ImagesVo imagesVo) {
-        return this.bookService.insert(imagesVo);
+    public Result<BooksVo> insert(@RequestBody BooksVo vo) {
+        return this.bookService.insert(vo);
     }
 
     /**
      * 修改书本信息
-     * @param imagesVo
+     * @param vo
      * @return
      */
     @PostMapping("/update")
-    public Result<Book> update(@RequestBody ImagesVo imagesVo){
-        return this.bookService.update(imagesVo);
+    public Result<BooksVo> update(@RequestBody BooksVo vo){
+        return this.bookService.update(vo);
     }
 
     /**
@@ -89,7 +91,7 @@ public class BookController {
      * @return
      */
     @DeleteMapping("/delete")
-    public Result<Book> deleteById(Integer id){
+    public Result<BooksVo> deleteById(Integer id){
         return this.bookService.delete(id);
     }
     // Result<Book>--data里面的数据类型是什么<>里面就放什么 例如：<Book>
@@ -117,6 +119,8 @@ public class BookController {
 //        request.setAttribute("stu", pageData);
         return Result.success(pageData);
     }
+
+
 
 
 }

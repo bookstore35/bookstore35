@@ -1,5 +1,6 @@
 package com.example.springboot.service.impl;
 
+import com.example.springboot.Vo.BooksVo;
 import com.example.springboot.Vo.ImagesVo;
 import com.example.springboot.dao.BookDao;
 import com.example.springboot.dao.ImagesDao;
@@ -7,15 +8,18 @@ import com.example.springboot.entity.Book;
 import com.example.springboot.entity.Images;
 import com.example.springboot.service.BookService;
 import com.example.springboot.utils.Result;
-import com.github.javaparser.utils.SourceRoot;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 @Service
@@ -25,6 +29,8 @@ public class BookServiceImpl implements BookService {
     private BookDao bookDao;
     @Autowired
     private ImagesDao imagesDao;
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
 
     @Override
@@ -88,10 +94,10 @@ public class BookServiceImpl implements BookService {
     @Override
     @Transactional
     public Result update(ImagesVo vo){
-        //1.构建book类并保存
+        imagesDao.deleteByBid(vo.getId());
+
         Book book = new Book();
         BeanUtils.copyProperties(vo,book);
-
         this.bookDao.save(book);
 
         // 2.给详情图赋值并保存
@@ -122,7 +128,9 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Result delete(Integer id){
-        this.bookDao.deleteById(id);
+
+        imagesDao.deleteBook(id);
+//        this.bookDao.deleteById(id);
         return Result.success("删除成功！");
     }
 
@@ -139,4 +147,6 @@ public class BookServiceImpl implements BookService {
 
         return pa;
     }
+
+
 }

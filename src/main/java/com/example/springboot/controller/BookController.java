@@ -2,13 +2,17 @@ package com.example.springboot.controller;
 
 import com.example.springboot.Vo.BooksClassVo;
 import com.example.springboot.Vo.BooksVo;
+import com.example.springboot.aop.UserLoginToken;
 import com.example.springboot.entity.Book;
+import com.example.springboot.entity.Seller;
 import com.example.springboot.service.BookService;
+import com.example.springboot.service.SellerService;
 import com.example.springboot.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
@@ -20,6 +24,8 @@ import java.util.List;
 public class BookController {
     @Autowired
     private BookService bookService;
+    @Autowired
+    private SellerService sellerService;
 
 
     /**
@@ -70,8 +76,12 @@ public class BookController {
      * @param vo
      * @return
      */
+//    @UserLoginToken
     @PostMapping("/insert")
-    public Result<BooksVo> insert(@RequestBody BooksVo vo) {
+    public Result<BooksVo> insert(@RequestBody BooksVo vo , HttpServletRequest request) {
+//        String userName = request.getAttribute("identityId").toString();
+//        Seller seller = sellerService.getByUserName(userName);
+//        vo.setSid(seller.getId());
         return this.bookService.insert(vo);
     }
 

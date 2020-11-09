@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -64,7 +65,7 @@ public class BooksServiceImpl implements BooksClassService {
 
 
     @Override
-    public List<BooksClassVo> selectBooksVo(Integer pid, Integer number, Integer content) {
+    public List<BooksClassVo> selectBooksVo(Integer pid, Integer pageNo, Integer pageSize) {
          /*
            查询方法
         */
@@ -102,7 +103,7 @@ public class BooksServiceImpl implements BooksClassService {
         /*
             返回执行数据库操作
          */
-        return jdbcTemplate.query(sql2.toString(),rowMapper,pid,(number-1)*content,content);
+        return jdbcTemplate.query(sql2.toString(),rowMapper,pid,(pageNo-1)*pageSize,pageSize);
     }
 
     @Override
@@ -175,15 +176,28 @@ public class BooksServiceImpl implements BooksClassService {
 
     //根据父级查出所有所属的子类id
     @Override
-    public List<BooksClassVo> selectBooks(Integer id, Integer number, Integer content) {
+    public List<BooksClassVo> selectBooks(Integer id,String bookName, Integer pageNo, Integer pageSize) {
+        List param = new ArrayList();
         StringBuffer sql3=new StringBuffer();
         sql3.append("SELECT t.id,t.book_name ,t.publisher,t.author,t.introduce,t.images_url  \n");
         sql3.append(",(select t3.seller_name from seller t3 where t3.sid=t.sid) seller_name,t3.name from book t\n");
         sql3.append("LEFT JOIN books_class t3 on t3.id=t.cid \n");
-        sql3.append("where t.cid in(SELECT id FROM(SELECT t1.id,IF (find_in_set(pid, @pids) > 0 ,@pids := concat(@pids, ',', id),0) \n");
-        sql3.append("AS ischild FROM(SELECT id,pid FROM books_class t ORDER BY pid,id) t1,(SELECT @pids := ?) t2) t3 \n");
-        sql3.append("WHERE ischild != 0)or t.cid = ? \n");
+        sql3.append("where 1=1\n");
+        if(id != null){
+            sql3.append("and (t.cid in(SELECT id FROM(SELECT t1.id,IF (find_in_set(pid, @pids) > 0 ,@pids := concat(@pids, ',', id),0) \n");
+            sql3.append("AS ischild FROM(SELECT id,pid FROM books_class t ORDER BY pid,id) t1,(SELECT @pids := ?) t2) t3 \n");
+            sql3.append("WHERE ischild != 0)or t.cid = ? )\n");
+            param.add(id);
+            param.add(id);
+        }
+
+        if(bookName != null && !"".equals(bookName)){
+            sql3.append(" and t.book_name like ?\n");
+            param.add("%"+bookName+"%");
+        }
         sql3.append("limit ?,?\n");
+        param.add(pageNo);
+        param.add(pageSize);
         RowMapper<BooksClassVo> rowMapper = new RowMapper<BooksClassVo>() {
             /*
                 将数据库的查询数据传入到booksClass
@@ -211,7 +225,8 @@ public class BooksServiceImpl implements BooksClassService {
         /*
             返回执行数据库操作
          */
-        return jdbcTemplate.query(sql3.toString(),rowMapper,id,id,(number-1)*content,content);
+        return jdbcTemplate.query(sql3.toString(),rowMapper,param.toArray());
+//        return jdbcTemplate.query(sql3.toString(),rowMapper,id,id,(number-1)*content,content);
 
     }
 }

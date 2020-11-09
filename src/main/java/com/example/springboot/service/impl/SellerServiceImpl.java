@@ -1,5 +1,7 @@
 package com.example.springboot.service.impl;
 
+import com.baomidou.mybatisplus.extension.api.R;
+import com.example.springboot.config.JwtConfig;
 import com.example.springboot.dao.SellerDao;
 import com.example.springboot.entity.Seller;
 import com.example.springboot.service.SellerService;
@@ -11,6 +13,8 @@ import java.util.List;
 
 @Service
 public class SellerServiceImpl implements SellerService {
+    @Autowired
+    private JwtConfig jwtConfig;
     @Autowired
     SellerDao sellerDao;
 
@@ -41,6 +45,12 @@ public class SellerServiceImpl implements SellerService {
         return Result.success("修改成功!");
     }
 
+    @Override
+    public Seller getByUserName(String username) {
+        Seller seller = sellerDao.getByUsername(username);
+
+        return seller;
+    }
 
 
     @Override
@@ -58,7 +68,11 @@ public class SellerServiceImpl implements SellerService {
         if (!password.equals(seller.getPassword())) {
             return Result.error("密码错误");
         }
-        return Result.success("登录成功！");
+//        String token = jwtConfig.createToken(username);
+//
+//
+//        return Result.success(token);
+        return Result.success("登录成功");
     }
 
 }

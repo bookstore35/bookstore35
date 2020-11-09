@@ -39,26 +39,27 @@ public class BooksClassController {
     /**
      * 根据父级ID查出所有所属的书本信息+分页
      * @param id
-     * @param number
-     * @param content
+     * @param bookName
+     * @param pageNo
+     * @param pageSize
      * @return
      */
     @GetMapping("/selectBooks")
-    public Result<BooksClassVo> selectBooks(Integer id,Integer number,Integer content){
-        return Result.success(booksClassService.selectBooks(id,number,content));
+    public Result<BooksClassVo> selectBooks(Integer id,String bookName,Integer pageNo, Integer pageSize){
+        return Result.success(booksClassService.selectBooks(id,bookName,pageNo,pageSize));
     }
 
     /**
      * 书本信息+分类+店铺名的多表分页查询
      * @param pid
-     * @param number
-     * @param content
+     * @param pageNo
+     * @param pageSize
      * @return
      */
     @GetMapping("/booksVo")
-    public Result<BooksClass> selectBooksVo(Integer pid, Integer number, Integer content){
+    public Result<BooksClass> selectBooksVo(Integer pid,  Integer pageNo, Integer pageSize){
 
-        return Result.success(booksClassService.selectBooksVo(pid,number,content));
+        return Result.success(booksClassService.selectBooksVo(pid,pageNo,pageSize));
     }
 
     /**

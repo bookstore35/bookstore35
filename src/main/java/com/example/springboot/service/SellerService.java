@@ -11,6 +11,7 @@ public interface SellerService {
     public Result insert(Seller seller);
     public Result delete(Integer id);
     public Result update(Seller seller);
+    Seller getByUserName(String username);
 
     public Result login(String username,String password );
 }

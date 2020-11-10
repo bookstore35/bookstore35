@@ -2,8 +2,8 @@ package com.example.springboot.controller;
 
 import com.example.springboot.aop.UserLoginToken;
 
-import com.example.springboot.dao.UserDao;
 import com.example.springboot.entity.User;
+import com.example.springboot.service.RedisService;
 import com.example.springboot.service.UserService;
 
 import com.example.springboot.utils.CodeUtil;
@@ -11,13 +11,11 @@ import com.example.springboot.utils.PageUtils;
 import com.example.springboot.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 /**
  * 用户管理
@@ -32,6 +30,8 @@ public class UserController {
     private CodeUtil codeUtil;
     @Autowired
     private UserService userService;
+    @Autowired
+    private RedisService redisService;
 
     /**
      * 登录接口
@@ -53,15 +53,41 @@ public class UserController {
     @PostMapping("/regist")
     public Result<User>  regist(@RequestBody User user,HttpServletRequest request){
 
-        try {
-            if (!codeUtil.checkVerifyCode(request)) {
-                return Result.error("验证码出错");
-            }
-        } catch (Exception e) {
-            // 返回错误信息给前端
-            return Result.error(e.getMessage());
-        }
+//        try {
+//            if (!codeUtil.checkVerifyCode(request)) {
+//                return Result.error("验证码出错");
+//            }
+//        } catch (Exception e) {
+//            // 返回错误信息给前端
+//            return Result.error(e.getMessage());
+//        }
         return this.userService. regist(user);
+    }
+    /**
+     * 校验验证码的接口
+     *
+     */
+    @GetMapping("/checkVerify")
+    public Result<User> checkVerfiy(@RequestParam String verifyCodeInput, HttpServletRequest request){
+        String id = request.getSession().getId();
+        // redis保存的验证码
+        String verifyCodeExpected = redisService.getValueByKey(id);
+        if(verifyCodeExpected == null){
+            return Result.error("验证码已过期！");
+        }
+
+        //2-1.获取用户输入的验证码---验证码的值verifyCodeInput
+        String inputStr =  verifyCodeInput;
+
+
+        //3.判断逻辑
+        if(inputStr == null){
+            return Result.error("验证码为空！");
+        }
+        if(!inputStr.equals(verifyCodeExpected)) {
+            return Result.error("验证码错误！");
+        }
+        return Result.success("验证成功");
     }
     /**
      * 查询所有用户接口

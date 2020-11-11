@@ -155,7 +155,7 @@ public class BooksServiceImpl implements BooksClassService {
     }
 
 
-    private List<BooksClass> getChildren(BooksClass root, List<BooksClass> all) {
+    public static List<BooksClass> getChildren(BooksClass root, List<BooksClass> all) {
 
         List<BooksClass> children = all.stream()
                 // 根据 父菜单 ID 查找当前菜单 ID，以便于找到 当前菜单的子菜单

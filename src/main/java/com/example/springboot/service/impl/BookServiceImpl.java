@@ -2,9 +2,14 @@ package com.example.springboot.service.impl;
 
 import com.example.springboot.Vo.BooksClassVo;
 import com.example.springboot.Vo.BooksVo;
+import com.example.springboot.Vo.IndexVo;
+import com.example.springboot.dao.AdvertiseDao;
 import com.example.springboot.dao.BookDao;
+import com.example.springboot.dao.BooksClassDao;
 import com.example.springboot.dao.ImagesDao;
+import com.example.springboot.entity.Advertise;
 import com.example.springboot.entity.Book;
+import com.example.springboot.entity.BooksClass;
 import com.example.springboot.entity.Images;
 import com.example.springboot.service.BookService;
 import com.example.springboot.utils.CODE;
@@ -19,6 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -29,6 +35,10 @@ public class BookServiceImpl implements BookService {
     private ImagesDao imagesDao;
     @Autowired
     private JdbcTemplate jdbcTemplate;
+    @Autowired
+    private BooksClassDao booksClassDao;
+    @Autowired
+    private AdvertiseDao advertiseDao;
 
 
     @Override
@@ -55,6 +65,7 @@ public class BookServiceImpl implements BookService {
 
         return vo;
     }
+
 
     @Override
     public Result getByBookName(String bookName) {
@@ -143,18 +154,43 @@ public class BookServiceImpl implements BookService {
 
     /**
      * 设置分页查询所有信息
-     * @param page
+     * @param pageNo
      * @param pageSize
      * @return
      */
     @Override
-    public Page<Book> findAll(Integer page, Integer pageSize) {
-        Pageable pageable= PageRequest.of(page,pageSize);
+    public Page<Book> findAll(Integer pageNo,Integer pageSize) {
+        Pageable pageable= PageRequest.of(pageNo,pageSize);
         Page<Book> pa=bookDao.findAll(pageable);
 
         return pa;
     }
 
+    @Override
+    public IndexVo index() {
+        IndexVo vo = new IndexVo();
+        Pageable pageable= PageRequest.of(0,4);
+        Page<Book> pa=bookDao.findAll(pageable);
+        vo.setBookList(pa);
+
+        List<BooksClass> lists = booksClassDao.findAll();
+        // 把数据组合成树形结构
+        List<BooksClass> result = lists.stream()
+                // 查找第一级菜单
+                .filter(menu -> menu.getLevel() == 1)
+                // 查找子菜单并放到第一级菜单中
+                .map(menu -> {
+                    menu.setChildren(BooksServiceImpl.getChildren(menu, lists));
+                    return menu;
+                })
+                // 把处理结果收集成一个 List 集合
+                .collect(Collectors.toList());
+        vo.setBooksClassList(result);
+
+        List<Advertise> advertisese = advertiseDao.index();
+        vo.setAdvertiseList(advertisese);
+        return vo;
+    }
 
 
 }

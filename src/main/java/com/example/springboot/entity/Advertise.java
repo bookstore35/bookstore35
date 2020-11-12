@@ -1,6 +1,10 @@
 package com.example.springboot.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -8,7 +12,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "advertise")
-public class Advertise {
+public class Advertise implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -25,9 +29,17 @@ public class Advertise {
     @Column
     private Integer sid;//对应的商品或店铺id
 
+//    @JsonFormat(timezone = "Asia/shanghai",pattern = "yyyy-MM-dd kk:mm:ss")
+//    @DateTimeFormat(pattern="yyyy-MM-dd kk:mm:ss")
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     @Column
     private Date beginTime;//开始时间
 
+//    @JsonFormat(timezone = "Asia/shanghai",pattern = "yyyy-MM-dd kk:mm:ss")
+//    @DateTimeFormat(pattern="yyyy-MM-dd kk:mm:ss")
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     @Column
     private Date endTime;//结束时间
 

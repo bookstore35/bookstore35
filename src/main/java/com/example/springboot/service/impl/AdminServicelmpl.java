@@ -46,9 +46,9 @@ public class AdminServicelmpl implements AdminService {
     }
 
     @Override
-    public Result<Admin> getById(Integer id) {
-        Admin admin = adminDao.findById(id).get();//根据id查询管理员;
-        return Result.success(admin);
+        public Result<Admin> getById(Integer id) {
+            Admin admin = adminDao.findById(id).get();//根据id查询管理员;
+            return Result.success(admin);
     }
 
     @Override

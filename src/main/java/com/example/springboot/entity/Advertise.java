@@ -29,17 +29,17 @@ public class Advertise implements Serializable {
     @Column
     private Integer sid;//对应的商品或店铺id
 
-//    @JsonFormat(timezone = "Asia/shanghai",pattern = "yyyy-MM-dd kk:mm:ss")
-//    @DateTimeFormat(pattern="yyyy-MM-dd kk:mm:ss")
-    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(timezone = "Asia/shanghai",pattern = "yyyy-MM-dd kk:mm:ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd kk:mm:ss")
+//    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
+//    @DateTimeFormat(pattern="yyyy-MM-dd")
     @Column
     private Date beginTime;//开始时间
 
-//    @JsonFormat(timezone = "Asia/shanghai",pattern = "yyyy-MM-dd kk:mm:ss")
-//    @DateTimeFormat(pattern="yyyy-MM-dd kk:mm:ss")
-    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(timezone = "Asia/shanghai",pattern = "yyyy-MM-dd kk:mm:ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd kk:mm:ss")
+//    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
+//    @DateTimeFormat(pattern="yyyy-MM-dd")
     @Column
     private Date endTime;//结束时间
 

@@ -73,7 +73,7 @@ public class BooksServiceImpl implements BooksClassService {
          sql2.append("select a.id,a.book_name ,a.publisher,a.author,a.introduce,a.images_url,b.name,c.seller_name  \n");
          sql2.append("from book a \n");
          sql2.append("left join books_class b on a.cid=b.id\n");
-         sql2.append("inner join seller c on a.sid=c.sid \n");
+         sql2.append("inner join seller c on c.id=a.sid \n");
          sql2.append("where a.cid=?\n ");
          sql2.append("limit ?,?");
 
@@ -180,7 +180,8 @@ public class BooksServiceImpl implements BooksClassService {
         List param = new ArrayList();
         StringBuffer sql3=new StringBuffer();
         sql3.append("SELECT t.id,t.book_name ,t.publisher,t.author,t.introduce,t.images_url  \n");
-        sql3.append(",(select t3.seller_name from seller t3 where t3.sid=t.sid) seller_name,t3.name from book t\n");
+        sql3.append(",(select t3.seller_name from seller t3 where t3.id=t.sid) seller_name,t3.name\n");
+        sql3.append("from book t\n");
         sql3.append("LEFT JOIN books_class t3 on t3.id=t.cid \n");
         sql3.append("where 1=1\n");
         if(id != null){

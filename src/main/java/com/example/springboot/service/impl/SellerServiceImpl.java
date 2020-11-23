@@ -62,15 +62,17 @@ public class SellerServiceImpl implements SellerService {
     @Override
     public Result login(String username, String password) {
         Seller seller = this.sellerDao.getByUsername(username);
+
         if (seller == null) {
             return Result.error("用户名不存在");
         }
         if (!password.equals(seller.getPassword())) {
             return Result.error("密码错误");
+
         }
-//        String token = jwtConfig.createToken(username);
-//
-//
+        String token = jwtConfig.createToken(username);
+
+
 //        return Result.success(token);
         return Result.success("登录成功");
     }

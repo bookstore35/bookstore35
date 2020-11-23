@@ -78,26 +78,21 @@ public class BookController {
     }
 
 
-
-//    @UserLoginToken
-//    @PostMapping("/insert")
-//    public Result<BooksVo> insert(@RequestBody BooksVo vo , HttpServletRequest request) {
-//        String userName = request.getAttribute("identityId").toString();
-//        Seller seller = sellerService.getByUserName(userName);
-//        vo.setSid(seller.getId());
-//        return this.bookService.insert(vo);
-//    }
-
     /**
      * 添加书本信息
      * @param vo
+     * @param request
      * @return
      */
+    @UserLoginToken
     @PostMapping("/insert")
-    public Result<BooksVo> insert(@RequestBody BooksVo vo ) {
-
+    public Result<BooksVo> insert(@RequestBody BooksVo vo , HttpServletRequest request) {
+        String userName = request.getAttribute("identityId").toString();
+        Seller seller = sellerService.getByUserName(userName);
+        vo.setSid(seller.getId());
         return this.bookService.insert(vo);
     }
+
 
     /**
      * 修改书本信息

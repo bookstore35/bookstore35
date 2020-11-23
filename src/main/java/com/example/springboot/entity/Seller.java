@@ -18,8 +18,7 @@ public class Seller {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column
-    private Integer sid; //店铺id
+
     @Column
     private String sellerName; //店铺名称
     @Column
@@ -37,13 +36,6 @@ public class Seller {
         this.id = id;
     }
 
-    public Integer getSid() {
-        return sid;
-    }
-
-    public void setSid(Integer sid) {
-        this.sid = sid;
-    }
 
     public String getSellerName() {
         return sellerName;

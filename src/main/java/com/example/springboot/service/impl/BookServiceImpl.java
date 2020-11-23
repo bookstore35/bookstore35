@@ -123,6 +123,7 @@ public class BookServiceImpl implements BookService {
         if(imagesDetails != null && imagesDetails.size() > 0){
             for(int i=0;i<imagesDetails.size();i++){
                 Images details= imagesDetails.get(i);
+                details.setId(null);
                 details.setBid(book.getId());
                 details.setJudge(0);
             }
@@ -133,6 +134,7 @@ public class BookServiceImpl implements BookService {
         if(imagesThumbnails != null && imagesThumbnails.size() > 0){
             for(int i=0;i<imagesThumbnails.size();i++){
                 Images details= imagesThumbnails.get(i);
+                details.setId(null);
                 details.setBid(book.getId());
                 details.setJudge(1);
             }

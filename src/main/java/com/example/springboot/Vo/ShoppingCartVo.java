@@ -5,6 +5,7 @@ public class ShoppingCartVo {
     private Integer id;     //购物车id
     private Integer bid;    //书本id
     private Integer number; //商品数量
+    private Float price;    //价格
     private String bookName;    //书名
     private String publisher;   //出版社
     private String author;  //作者名称
@@ -13,13 +14,13 @@ public class ShoppingCartVo {
 
     private String sellerName; //店铺名称
 
-
     @Override
     public String toString() {
         return "ShoppingCartVo{" +
                 "id=" + id +
                 ", bid=" + bid +
                 ", number=" + number +
+                ", price=" + price +
                 ", bookName='" + bookName + '\'' +
                 ", publisher='" + publisher + '\'' +
                 ", author='" + author + '\'' +
@@ -51,6 +52,14 @@ public class ShoppingCartVo {
 
     public void setNumber(Integer number) {
         this.number = number;
+    }
+
+    public Float getPrice() {
+        return price;
+    }
+
+    public void setPrice(Float price) {
+        this.price = price;
     }
 
     public String getBookName() {

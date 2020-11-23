@@ -69,7 +69,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Override
     public List<ShoppingCartVo> selectCart(Integer uid) {
         StringBuffer sql=new StringBuffer();
-        sql.append("select s.id,s.bid,s.number,a.book_name ,a.publisher,a.author,a.introduce,a.images_url,c.seller_name \n");
+        sql.append("select s.id,s.bid,s.number,a.price,a.book_name ,a.publisher,a.author,a.introduce,a.images_url,c.seller_name \n");
         sql.append("from shopping_cart s\n");
         sql.append("left join book a on s.bid = a.id \n");
         sql.append("inner join seller c on c.id=a.sid \n");
@@ -88,12 +88,13 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                 shoppingCartVo.setId(resultSet.getInt(1));
                 shoppingCartVo.setBid(resultSet.getInt(2));
                 shoppingCartVo.setNumber(resultSet.getInt(3));
-                shoppingCartVo.setBookName(resultSet.getString(4));
-                shoppingCartVo.setPublisher(resultSet.getString(5));
-                shoppingCartVo.setAuthor(resultSet.getString(6));
-                shoppingCartVo.setIntroduce(resultSet.getString(7));
-                shoppingCartVo.setImagesUrl(resultSet.getString(8));
-                shoppingCartVo.setSellerName(resultSet.getString(9));
+                shoppingCartVo.setPrice(resultSet.getFloat(4));
+                shoppingCartVo.setBookName(resultSet.getString(5));
+                shoppingCartVo.setPublisher(resultSet.getString(6));
+                shoppingCartVo.setAuthor(resultSet.getString(7));
+                shoppingCartVo.setIntroduce(resultSet.getString(8));
+                shoppingCartVo.setImagesUrl(resultSet.getString(9));
+                shoppingCartVo.setSellerName(resultSet.getString(10));
                 return shoppingCartVo;
             }
         };

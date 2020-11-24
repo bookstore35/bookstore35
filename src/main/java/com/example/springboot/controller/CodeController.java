@@ -31,8 +31,6 @@ public class CodeController {
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
 
-
-
     @Autowired
     private RedisServiceImpl redisService;
     private static int captchaExpires = 3*60; //超时时间3min

@@ -51,7 +51,7 @@ public class JwtConfig {
         //使用 JWT 创建 token 对象
         String userToken = Jwts.builder()
                 .setHeaderParam("typ", "JWT")
-                .setSubject(subject) //用户名
+                .setSubject(subject) //用户名.
                 .setIssuedAt(nowDate)
                 .setExpiration(expireDate)
                 .signWith(SignatureAlgorithm.HS512, secret)
@@ -123,7 +123,6 @@ public class JwtConfig {
     public Date getIssuedAtDateFromToken(String token) {
         return getTokenClaim(token).getIssuedAt();
     }
-
 
     public String getSecret() {
         return secret;

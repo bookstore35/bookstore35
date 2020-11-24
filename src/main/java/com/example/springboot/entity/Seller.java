@@ -1,6 +1,5 @@
 package com.example.springboot.entity;
 
-import sun.security.util.Password;
 
 import javax.persistence.*;
 
@@ -17,7 +16,6 @@ public class Seller {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
 
     @Column
     private String sellerName; //店铺名称
@@ -69,10 +67,3 @@ public class Seller {
         this.address = address;
     }
 }
-/**
- * @ClassName : seller
- * @Description : TODO
- * @author : zpx
- * @date : 2020/9/29 10:47
- * @version : 1.0
- **/

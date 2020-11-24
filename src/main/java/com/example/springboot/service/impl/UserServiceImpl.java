@@ -95,10 +95,10 @@ public class UserServiceImpl implements UserService {
            return Result.error("密码错误");
         }
 
-        String token = jwtConfig.createToken(username);
-
-
-        return Result.success(token);
+       jwtConfig.createToken(username);
+/*
+        return Result.success(token);*/
+        return Result.success("登陆成功");
     }
 
     @Override
@@ -118,7 +118,6 @@ public class UserServiceImpl implements UserService {
         redisService.delete(joint);
         //，接口实现手机号和短信验证码，把手机号拼接成redis中key,
         String token = jwtConfig.createToken(mobile);
-
 
         return Result.success(token);
     }

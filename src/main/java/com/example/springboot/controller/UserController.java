@@ -46,8 +46,9 @@ public class UserController {
     }
 
     /**
-     * 注册接口
+     *
      * @param user
+     * @param request
      * @return
      */
     @PostMapping("/regist")
@@ -78,7 +79,6 @@ public class UserController {
 
         //2-1.获取用户输入的验证码---验证码的值verifyCodeInput
         String inputStr =  verifyCodeInput;
-
 
         //3.判断逻辑
         if(inputStr == null){

@@ -74,7 +74,7 @@ public class SellerServiceImpl implements SellerService {
 
 
 //        return Result.success(token);
-        return Result.success("登录成功");
+        return Result.success(token);
     }
 
 }

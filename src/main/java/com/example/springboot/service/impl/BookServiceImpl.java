@@ -118,6 +118,7 @@ public class BookServiceImpl implements BookService {
         BeanUtils.copyProperties(vo,book);
         this.bookDao.save(book);
 
+
         // 2.给详情图赋值并保存
         List<Images> imagesDetails = vo.getImagesDetails();
         if(imagesDetails != null && imagesDetails.size() > 0){

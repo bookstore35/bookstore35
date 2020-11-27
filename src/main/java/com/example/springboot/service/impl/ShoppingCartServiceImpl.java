@@ -35,12 +35,25 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         ShoppingCart shoppingCart = shoppingCartDao.findById(id).get();
         return Result.success(shoppingCart);
     }
-
+//
     @Override
     public Result insert(ShoppingCart shoppingCart) {
+        Integer bid = shoppingCart.getBid();
+        Integer uid = shoppingCart.getUid();
+        //1,从数据库里面取出数据
+        ShoppingCart shoppingCart2=shoppingCartDao.findByBidAndUid(bid,uid);
+        if(shoppingCart2== null)
+        {
 
-        shoppingCartDao.save(shoppingCart);
-        return Result.success("添加成功");
+            shoppingCartDao.save(shoppingCart);
+            return  Result.success("添加成功");
+        }
+        //3,把数据库里面的number跟传过来的number相加
+        Integer m=shoppingCart2.getNumber();
+        shoppingCart2.setNumber(m+shoppingCart.getNumber());
+        shoppingCartDao.save(shoppingCart2);
+
+        return Result.success("添加数量成功");
     }
 
 
@@ -77,7 +90,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
         RowMapper<ShoppingCartVo> rowMapper = new RowMapper<ShoppingCartVo>() {
             /*
-                将数据库的查询数据传入到booksClass
+                将数据库的查询数据传入
              */
             @Override
             public ShoppingCartVo mapRow(ResultSet resultSet, int i) throws SQLException {
@@ -98,7 +111,9 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                 return shoppingCartVo;
             }
         };
+        System.out.println(jdbcTemplate.query(sql.toString(),rowMapper,uid).toString());
         return jdbcTemplate.query(sql.toString(),rowMapper,uid);
     }
+
 
 }

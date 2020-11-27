@@ -1,6 +1,6 @@
 package com.example.springboot.controller;
 
-import com.example.springboot.Vo.BooksClassVo;
+
 import com.example.springboot.Vo.BooksVo;
 import com.example.springboot.Vo.IndexVo;
 import com.example.springboot.aop.UserLoginToken;
@@ -12,13 +12,11 @@ import com.example.springboot.service.SellerService;
 import com.example.springboot.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * 书籍管理接口类

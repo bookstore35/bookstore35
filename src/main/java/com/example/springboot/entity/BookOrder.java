@@ -7,7 +7,7 @@ import java.util.Date;
 @Table(name = "book_order")
 public class BookOrder {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;   //主键ID,
     @Column
     private String oid; //订单编号

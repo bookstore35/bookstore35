@@ -15,4 +15,5 @@ public interface ShoppingCartService {
      public Result update(ShoppingCart shoppingCart);
      User findAllByUsername(String userName);
      List<ShoppingCartVo> selectCart(Integer uid);
+
 }

@@ -27,8 +27,12 @@ public class OrderDeServiceImpl implements OrderDeService {
 	}
 
 	@Override
-	public Result insert(OrderDetail orderDetail) {
-		return Result.success(orderDetailDao.save(orderDetail));
+	public Result insert(List<OrderDetail> orderDetail) {
+		for(int i=0;i<orderDetail.size();i++){
+
+			orderDetailDao.save(orderDetail.get(i));
+		}
+		return Result.success("保存成功");
 	}
 
 	@Override

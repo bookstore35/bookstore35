@@ -2,18 +2,11 @@ package com.example.springboot.controller;
 
 import com.example.springboot.Vo.ShoppingCartVo;
 import com.example.springboot.aop.UserLoginToken;
-import com.example.springboot.dao.ShoppingCartDao;
-import com.example.springboot.entity.Book;
-import com.example.springboot.entity.Seller;
 import com.example.springboot.entity.ShoppingCart;
 import com.example.springboot.entity.User;
-import com.example.springboot.service.BookService;
 import com.example.springboot.service.ShoppingCartService;
-import com.example.springboot.service.UserService;
 import com.example.springboot.utils.Result;
 import org.apache.ibatis.annotations.Delete;
-import org.omg.CORBA.INTERNAL;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,7 +45,7 @@ public class ShoppingCartController {
     }
 
     /**
-     * 添加商品（用户id自动获取）
+     * 添加购物车商品（用户id自动获取）
      * @param shoppingCart
      * @return
      */
@@ -63,12 +56,13 @@ public class ShoppingCartController {
         String userName = request.getAttribute("identityId").toString();
         User user = shoppingCartService.findAllByUsername(userName);
         shoppingCart.setUid(user.getId());
+
         return shoppingCartService.insert(shoppingCart);
     }
 
 
     /**
-     * 修改商品数量
+     * 修改购物车商品数量
      * @param shoppingCart
      * @return
      */
@@ -80,7 +74,7 @@ public class ShoppingCartController {
 
 
     /**
-     * 删除商品
+     * 删除购物车商品
      * @param id
      * @return
      */
@@ -88,5 +82,8 @@ public class ShoppingCartController {
     public Result<ShoppingCart> deleteById(Integer id){
         return Result.success(shoppingCartService.delete(id));
     }
+
+
+
 
 }

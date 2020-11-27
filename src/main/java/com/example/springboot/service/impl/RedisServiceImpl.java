@@ -19,10 +19,10 @@ public class RedisServiceImpl implements RedisService {
     private RedisTemplate<String, String> redisTemplate;	//Spring自动注入RedisTemplate
 
     // 20: 表示该数据在缓存中存在的时间，TimeUnit.SECONDS为单位秒，
-    // 180秒后缓存中的数据会自动消失
+    // 600秒后缓存中的数据会自动消失
     @Override
     public void addKey(String key, String value) {
-        redisTemplate.opsForValue().set(key,value,3*60, TimeUnit.SECONDS);
+        redisTemplate.opsForValue().set(key,value,10*60, TimeUnit.SECONDS);
     }
 
     @Override

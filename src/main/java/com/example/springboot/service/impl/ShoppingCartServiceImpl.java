@@ -8,7 +8,6 @@ import com.example.springboot.entity.ShoppingCart;
 import com.example.springboot.entity.User;
 import com.example.springboot.service.ShoppingCartService;
 import com.example.springboot.utils.Result;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -114,6 +113,5 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         System.out.println(jdbcTemplate.query(sql.toString(),rowMapper,uid).toString());
         return jdbcTemplate.query(sql.toString(),rowMapper,uid);
     }
-
 
 }

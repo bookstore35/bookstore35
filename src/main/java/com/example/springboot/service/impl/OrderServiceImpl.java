@@ -37,21 +37,16 @@ public class OrderServiceImpl implements OrderService {
 		BookOrder bookOrder = new BookOrder();
 		BeanUtils.copyProperties(bookOrderVo,bookOrder);
 		bookOrder = this.orderDao.save(bookOrder);
-
 		List<OrderDetail> orderDetails = bookOrderVo.getOrderDetails();
 		if(orderDetails != null && orderDetails.size() > 0){
 			for(int i=0;i<orderDetails.size();i++){
 				OrderDetail details= orderDetails.get(i);
-
 				details.setOid(bookOrder.getOid());
-
 			}
 			this.orderDetailDao.saveAll(orderDetails);
 		}
-
 		return Result.success("添加成功");
 }
-
 	@Override
 	public Result delete(Integer id) {
 		this.orderDao.deleteById(id);

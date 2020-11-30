@@ -1,5 +1,6 @@
 package com.example.springboot.service.impl;
 
+import com.example.springboot.config.JwtConfig;
 import com.example.springboot.dao.AdminDao;
 import com.example.springboot.entity.Admin;
 import com.example.springboot.entity.Book;
@@ -23,6 +24,9 @@ public class AdminServicelmpl implements AdminService {
 
     @Autowired
     private AdminDao adminDao;
+
+    @Autowired
+    private JwtConfig jwtConfig;
 
     @Override
     public List<Admin> findAll() {
@@ -66,7 +70,8 @@ public class AdminServicelmpl implements AdminService {
         if (!password.equals(admin.getPassword())) {
             return Result.error("密码错误");
         }
-        return Result.success("登录成功！");
+        String token=jwtConfig.createToken(adminName);
+        return Result.success(token);
     }
 }
 

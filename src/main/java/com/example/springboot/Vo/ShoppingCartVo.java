@@ -11,7 +11,6 @@ public class ShoppingCartVo {
     private String author;  //作者名称
     private String introduce;   //内容介绍
     private String imagesUrl;   //书本封面（图片）
-
     private String sellerName; //店铺名称
 
     @Override

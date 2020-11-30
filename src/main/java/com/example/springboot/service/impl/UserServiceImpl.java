@@ -94,11 +94,8 @@ public class UserServiceImpl implements UserService {
         if(!password.equals(user.getPassword())){
            return Result.error("密码错误");
         }
-
-       jwtConfig.createToken(username);
-/*
-        return Result.success(token);*/
-        return Result.success("登陆成功");
+        String token=jwtConfig.createToken(username);
+        return Result.success(token);
     }
 
     @Override

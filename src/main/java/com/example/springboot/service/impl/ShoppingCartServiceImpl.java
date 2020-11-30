@@ -17,7 +17,12 @@ import org.springframework.stereotype.Service;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 public class ShoppingCartServiceImpl implements ShoppingCartService {
@@ -80,7 +85,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
 
     @Override
-    public List<ShoppingCartVo> selectCart(Integer uid) {
+    public  Map<String,List<ShoppingCartVo>> selectCart(Integer uid) {
         StringBuffer sql=new StringBuffer();
         sql.append("select s.id,s.bid,s.number,a.price,a.book_name ,a.publisher,a.author,a.introduce,a.images_url,c.seller_name \n");
         sql.append("from shopping_cart s\n");
@@ -111,8 +116,26 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                 return shoppingCartVo;
             }
         };
-        System.out.println(jdbcTemplate.query(sql.toString(),rowMapper,uid).toString());
-        return jdbcTemplate.query(sql.toString(),rowMapper,uid);
+        List<ShoppingCartVo> list=jdbcTemplate.query(sql.toString(),rowMapper,uid);
+        Map<String, List<ShoppingCartVo>> map2=new HashMap<>();
+        //遍历list添加进map
+        for(int j=0;j< list.size();j++) {
+            List<ShoppingCartVo> list2 = new ArrayList<ShoppingCartVo>();
+            list2.add(list.get(j));
+            for (int i = 0; i < list.size(); i++) {
+                if(j==i){continue; }
+                if(list.get(j).getSellerName().equals(list.get(i).getSellerName())){
+                    list2.add(list.get(i));
+                }
+            }
+            map2.put(list.get(j).getSellerName(),list2);
+        }
+        System.out.println(map2);
+        Map<String, ShoppingCartVo> map=list.stream().collect(Collectors.toMap(ShoppingCartVo::getSellerName, Function.identity(), (key1, key2) -> key2));
+        System.out.println(map);
+        System.out.println(list);
+        jdbcTemplate.query(sql.toString(),rowMapper,uid);
+        return map2;
     }
 
 

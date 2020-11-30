@@ -6,6 +6,7 @@ import com.example.springboot.entity.User;
 import com.example.springboot.utils.Result;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ShoppingCartService {
 
@@ -14,6 +15,6 @@ public interface ShoppingCartService {
      public Result delete(Integer id);
      public Result update(ShoppingCart shoppingCart);
      User findAllByUsername(String userName);
-     List<ShoppingCartVo> selectCart(Integer uid);
+     Map<String,List<ShoppingCartVo>> selectCart(Integer uid);
 
 }

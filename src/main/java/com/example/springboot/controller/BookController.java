@@ -145,8 +145,6 @@ public class BookController {
 
     @GetMapping("/index")
     public Result<IndexVo> index(){
-
-
         return Result.success(bookService.index());
     }
 

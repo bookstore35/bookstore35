@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 import javax.transaction.Transactional;
 import java.util.List;
 
-
 @Repository
 public interface BookDao extends JpaRepository<Book,Integer> {
     List<Book> findAll();
@@ -26,9 +25,5 @@ public interface BookDao extends JpaRepository<Book,Integer> {
     @Transactional
     @Query(value = "delete book,images from  book left join  images on book.id = images.bid where book.id= ?",nativeQuery = true)
     void deleteBook(Integer id);
-
-
-
-
 
 }

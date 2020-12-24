@@ -44,17 +44,19 @@ public class BookServiceImpl implements BookService {
     @Autowired
     private AdvertiseDao advertiseDao;
 
-
+    //查找全部书本
     @Override
     public List<Book> findAll() {
         return bookDao.findAll();
     }
 
+    //书名模糊查询
     @Override
     public List<Book> findByBookNameLike(String bookName) {
         return bookDao.findByBookNameLike("%"+bookName+"%");
     }
 
+    //根据id查询书本信息
     @Override
     public BooksVo getById(Integer id) {
         BooksVo vo = new BooksVo();
@@ -77,15 +79,13 @@ public class BookServiceImpl implements BookService {
         return Result.success(book);
     }
 
+    //添加书本信息
     @Override
     @Transactional
     public Result insert(BooksVo vo) {
         //1.构建book类并保存
         Book book = new Book();
         BeanUtils.copyProperties(vo,book);
-        /*book.setAuthor(vo.getAuthor());
-        book.setBookName(vo.getBookName());*/
-
         book = this.bookDao.save(book);
 
         // 2.给详情图赋值并保存
@@ -108,21 +108,17 @@ public class BookServiceImpl implements BookService {
             }
             this.imagesDao.saveAll(imagesThumbnails);
         }
-
         return Result.success(book);
     }
 
-
+    //修改书本信息
     @Override
     @Transactional
     public Result update(BooksVo vo){
         imagesDao.deleteByBid(vo.getId());
-
         Book book = new Book();
         BeanUtils.copyProperties(vo,book);
         this.bookDao.save(book);
-
-
         // 2.给详情图赋值并保存
         List<Images> imagesDetails = vo.getImagesDetails();
         if(imagesDetails != null && imagesDetails.size() > 0){
@@ -145,17 +141,15 @@ public class BookServiceImpl implements BookService {
             }
             this.imagesDao.saveAll(imagesThumbnails);
         }
-
         return Result.success("修改成功");
     }
 
 
-
+    //删除书本
     @Override
     public Result delete(Integer id){
 
         bookDao.deleteBook(id);
-//        this.bookDao.deleteById(id);
         return Result.success("删除成功！");
     }
 
@@ -173,6 +167,7 @@ public class BookServiceImpl implements BookService {
         return pa;
     }
 
+    //首页接口
     @Override
     public IndexVo index() {
         IndexVo vo = new IndexVo();

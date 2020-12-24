@@ -24,20 +24,15 @@ public class BooksServiceImpl implements BooksClassService {
     @Autowired
     private BooksClassDao booksClassDao;
 
-
-    /**
-     * jpa对象
-     * @param id
-     * @return
-     */
-
-
+    //查询书本分类
     @Override
     public List<BooksClass> selectBooksClass(Integer id) {
         /*
            查询方法
         */
-        String sql = "SELECT t1.* from books_class t1 join (SELECT @r AS _id, (SELECT @r:=pid FROM books_class WHERE id = _id) AS pid FROM (SELECT @r:=?) vars, books_class WHERE @r<>0 ) t2 on t2._id=t1.id where 1=1";
+        String sql = "SELECT t1.* from books_class t1 join (SELECT @r AS _id, " +
+                "(SELECT @r:=pid FROM books_class WHERE id = _id) AS pid FROM (SELECT @r:=?) vars, books_class WHERE @r<>0 ) t2 on t2._id=t1.id " +
+                "where 1=1";
         RowMapper<BooksClass> rowMapper = new RowMapper<BooksClass>() {
             /*
                 将数据库的查询数据传入到booksClass
@@ -63,7 +58,7 @@ public class BooksServiceImpl implements BooksClassService {
     }
 
 
-
+    //书本信息+分类+店铺名的多表分页查询
     @Override
     public List<BooksClassVo> selectBooksVo(Integer pid, Integer pageNo, Integer pageSize) {
          /*
@@ -88,7 +83,6 @@ public class BooksServiceImpl implements BooksClassService {
                     return  booksVo;
                 }
                 booksVo.setId(resultSet.getInt(1));
-
                 booksVo.setBookName(resultSet.getString(2));
                 booksVo.setPublisher(resultSet.getString(3));
                 booksVo.setAuthor(resultSet.getString(4));
@@ -99,18 +93,19 @@ public class BooksServiceImpl implements BooksClassService {
                 return booksVo;
             }
         };
-
         /*
             返回执行数据库操作
          */
         return jdbcTemplate.query(sql2.toString(),rowMapper,pid,(pageNo-1)*pageSize,pageSize);
     }
 
+    //查询所有分类
     @Override
     public List<BooksClass> findAll() {
         return booksClassDao.findAll();
     }
 
+    //添加分类
     @Override
     public Result insert(BooksClass booksClass) {
         BooksClass old = this.booksClassDao.findByName(booksClass.getName());
@@ -122,12 +117,14 @@ public class BooksServiceImpl implements BooksClassService {
         return Result.success(booksClass);
     }
 
+    //删除书本分类
     @Override
     public Result delete(Integer id) {
         this.booksClassDao.deleteById(id);
         return Result.success("删除成功！");
     }
 
+    //修改分类
     @Override
     public Result update(BooksClass booksClass) {
 
@@ -135,7 +132,7 @@ public class BooksServiceImpl implements BooksClassService {
         return Result.success("修改成功!");
     }
 
-
+    //书本分类 树形查询
     @Override
     public List<BooksClass> listWithTree() {
         // 查找所有菜单数据
@@ -154,9 +151,7 @@ public class BooksServiceImpl implements BooksClassService {
         return result;
     }
 
-
     public static List<BooksClass> getChildren(BooksClass root, List<BooksClass> all) {
-
         List<BooksClass> children = all.stream()
                 // 根据 父菜单 ID 查找当前菜单 ID，以便于找到 当前菜单的子菜单
                 .filter(menu -> menu.getPid() == root.getId())
@@ -222,12 +217,10 @@ public class BooksServiceImpl implements BooksClassService {
 
             }
         };
-
         /*
             返回执行数据库操作
          */
         return jdbcTemplate.query(sql3.toString(),rowMapper,param.toArray());
-//        return jdbcTemplate.query(sql3.toString(),rowMapper,id,id,(number-1)*content,content);
 
     }
 }
